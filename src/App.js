@@ -1,24 +1,28 @@
-import logo from './logo.svg';
 import './App.css';
+import AppRoutes from './Routes';
+import { ConfigProvider } from 'antd';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ConfigProvider
+    theme={{
+      token: {
+        colorPrimary: '#D6B300',
+      },
+      components: {
+        Menu: {
+          itemSelectedBg: '#D6B300',
+          itemHoverBg: 'rgba(214, 179, 0, 0.4)',
+          itemSelectedColor: '#2f463d',
+          itemHoverColor: '#2f463d',
+          subMenuItemBg: 'rgba(255, 255,255, 1)'
+          // algorithm: true
+        },
+       
+      }
+    }}>
+      <AppRoutes />
+      </ConfigProvider>
   );
 }
 
