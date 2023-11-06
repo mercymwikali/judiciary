@@ -1,7 +1,8 @@
-import { Button, Divider } from 'antd';
+import { Button, Card } from 'antd';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import {PlusOutlined} from '@ant-design/icons'
+import { PlusOutlined } from '@ant-design/icons'
+import logo from '../assets/Images/logo.png';
 
 function AssetTransfer(params) {
     const [approvedLeaveData, setApprovedLeaveData] = useState([]);
@@ -10,15 +11,18 @@ function AssetTransfer(params) {
     const leaveTypes = ["Adoption", "Annual Leave", "Partenity", "Personal Days", "Sick Off", "Sick Leave", "Study Leave", "Time Off In Lieu"];
 
     return (
-        <div className="card">
+        <Card>
             <div className="card-body">
-            < h4 className='px-3 pt-3 text-primary'>Asset Transfer List</h4>
-                <Divider/>
+                <div className="text-center">
+                <img width={200} src={logo} className='ps-3 py-1' alt='logo' />
+                < h4 className='px-3 pt-3 text-primary'>Asset Transfer List</h4>
+                </div>
+                <hr></hr>
                 <div className="table-responsive">
                     <table className="table table-hover table-bordered dt-responsive nowrap">
                         <thead>
                             <tr>
-                            <th className='small text-primary text-center bg-secondary' scope="col">#</th>
+                                <th className='small text-primary text-center bg-secondary' scope="col">#</th>
                                 <th className='small text-primary text-center bg-secondary' scope="col">No</th>
                                 <th className='small text-primary text-center bg-secondary' scope="col">Asset Number</th>
                                 <th className='small text-primary text-center bg-secondary' scope="col">From Location</th>
@@ -46,7 +50,7 @@ function AssetTransfer(params) {
                     </table>
                 </div>
             </div>
-        </div>
+        </Card>
     );
 }
 

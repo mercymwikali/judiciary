@@ -1,7 +1,8 @@
-import { Button, Divider } from 'antd';
+import { Button, Card } from 'antd';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import {PlusOutlined} from '@ant-design/icons'
+import { PlusOutlined } from '@ant-design/icons'
+import logo from '../assets/Images/logo.png';
 
 function PurchaseReq(params) {
     const [approvedLeaveData, setApprovedLeaveData] = useState([]);
@@ -10,11 +11,14 @@ function PurchaseReq(params) {
     const leaveTypes = ["Adoption", "Annual Leave", "Partenity", "Personal Days", "Sick Off", "Sick Leave", "Study Leave", "Time Off In Lieu"];
 
     return (
-        <div className="card">
+        <Card>
             <div className="card-body">
-            < h4 className='px-3 pt-3 text-primary'>Supervisor Review List</h4>
-                <Divider/>
-                <Link type='button' to='/new doc' className='text-decoration-none my-3 btn btn-primary'><PlusOutlined style={{color:'#fff', hover:'#000'}}/> New Purchase Requisition</Link>
+                <div className="text-center">
+                <img width={200} src={logo} className='ps-3 py-1' alt='logo' />
+                    < h4 className='px-3 pt-3 text-primary'>Supervisor Review List</h4>
+                </div>
+                <hr></hr>
+                <Link type='button' to='/new doc' className='text-decoration-none my-3 btn btn-primary'><PlusOutlined style={{ color: '#fff', hover: '#000' }} /> New Purchase Requisition</Link>
                 <div className="table-responsive">
                     <table className="table table-hover table-bordered dt-responsive nowrap">
                         <thead>
@@ -50,7 +54,7 @@ function PurchaseReq(params) {
                     </table>
                 </div>
             </div>
-        </div>
+        </Card>
     );
 }
 

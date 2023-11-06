@@ -1,6 +1,7 @@
-import { Divider } from 'antd';
+import { Card, Divider } from 'antd';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import logo from '../assets/Images/logo.png';
 
 
 function PayChange(params) {
@@ -10,10 +11,13 @@ function PayChange(params) {
     const leaveTypes = ["Adoption", "Annual Leave", "Partenity", "Personal Days", "Sick Off", "Sick Leave", "Study Leave", "Time Off In Lieu"];
 
     return (
-        <div className="card">
+        <Card>
             <div className="card-body">
-            < h4 className='px-3 pt-3 text-primary'>PayChange Advice List</h4>
-                <Divider/>
+                <div className="text-center">
+                    <img width={200} src={logo} className='ps-3 py-3' alt='logo' />
+                    <h4 className="text-primary">PayChange Advance List</h4>
+                </div>
+                <hr></hr>
                 <div className="table-responsive">
                     <table className="table table-hover table-bordered dt-responsive nowrap">
                         <thead>
@@ -45,7 +49,7 @@ function PayChange(params) {
                     </table>
                 </div>
             </div>
-        </div>
+        </Card>
     );
 }
 

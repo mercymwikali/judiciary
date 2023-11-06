@@ -3,6 +3,7 @@ import { Card, Select } from "antd";
 import Typography from "antd/es/typography/Typography";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import logo from '../assets/Images/logo.png';
 
 function Payslip() {
     const [Year, setYear] = useState([]);
@@ -62,7 +63,10 @@ function Payslip() {
     return (
         <Card>
             <div className="card-body">
-                <h4>Payslip Document View</h4>
+                <div className="text-center">
+                    <img width={200} src={logo} className='ps-3 py-3' alt='logo' />
+                    <h4 className="text-primary">Payslip Document View</h4>
+                </div>
                 <hr></hr>
                 <div className="row">
                     <div className="col-12 col-md-6">

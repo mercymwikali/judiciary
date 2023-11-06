@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Tabs, Card, Avatar, Descriptions } from 'antd';
 import { UserOutlined, MailOutlined, PhoneOutlined } from '@ant-design/icons';
+import logo from '../assets/Images/logo.png';
 
 const { TabPane } = Tabs;
 
@@ -42,6 +43,9 @@ const UserProfile = () => {
   return (
     <div style={{ padding: '20px' }}>
       <Card>
+        <div className="text-center">
+        <img width={230} src={logo} className='ps-3 py-2' alt='logo' />
+        </div>
         <Tabs defaultActiveKey="1">
           <TabPane tab="Profile Information" key="1">
             {userData && (

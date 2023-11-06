@@ -1,7 +1,8 @@
-import { Button, Divider } from 'antd';
+import { Button, Card, Divider } from 'antd';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { PlusOutlined } from '@ant-design/icons'
+import logo from '../assets/Images/logo.png';
 
 function CarryForward(params) {
     const [approvedLeaveData, setApprovedLeaveData] = useState([]);
@@ -10,10 +11,13 @@ function CarryForward(params) {
     const leaveTypes = ["Adoption", "Annual Leave", "Partenity", "Personal Days", "Sick Off", "Sick Leave", "Study Leave", "Time Off In Lieu"];
 
     return (
-        <div className="card">
+        <Card>
             <div className="card-body">
-                < h4 className='pt-3 text-primary'>Carry Forward List</h4>
-                <Divider />
+                <div className="text-center">
+                <img width={200} src={logo} className='ps-3 py-3' alt='logo' />
+                   < h4 className='pt-1 text-primary'>Carry Forward List</h4>
+                </div>
+                <hr></hr>
                 <Link type='button' to='/new doc' className='text-decoration-none mb-2 btn btn-primary'><PlusOutlined style={{ color: '#fff', hover: '#000' }} /> New Request</Link>
                 <div className="table-responsive">
                     <table className="table table-hover table-bordered dt-responsive nowrap">
@@ -49,7 +53,7 @@ function CarryForward(params) {
                     </table>
                 </div>
             </div>
-        </div>
+        </Card>
     );
 }
 
