@@ -23,11 +23,14 @@ import LeaveReimbursement from "./pages/LeaveReimbursement";
 import TimeOff from "./pages/TimeOff";
 import CarryForward from "./pages/CarryForward";
 import ApplicationHist from "./pages/ApplicationHist";
+import Login from "./pages/Login";
 
 function AppRoutes() {
     return (
         <Router>
             <Routes>
+            <Route path="/login" element={<Login />} />
+
                 <Route path="/" element={<Mainlayout />} >
                     <Route index element={<Dashboard />} />
                     <Route path="/User-profile" element={<UserProfile />} />

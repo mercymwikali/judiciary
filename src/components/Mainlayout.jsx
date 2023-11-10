@@ -66,6 +66,10 @@ const Mainlayout = () => {
                             onClick={({ key }) => {
                                 navigate(key);
                             }}
+                            // style={{
+                            //     paddingBottom:'20px',
+                            //     overflowY:'scroll'
+                            // }}
                             items={[
                                 {
                                     key: '/',
@@ -93,6 +97,33 @@ const Mainlayout = () => {
                                         {
                                             key: "/pay-change",
                                             label: 'Pay Change Advance',
+                                        },
+                                    ]
+                                },
+                                {
+                                    key: '/leave',
+                                    icon: <BiMessageError style={{ fontSize: 20 }} />,
+                                    label: 'Leave',
+                                    children: [
+                                        {
+                                            key: "/leave-requsition",
+                                            label: 'Leave Requsition',
+                                        },
+                                        {
+                                            key: "/leave-reimbursement",
+                                            label: 'Leave Reimbursement',
+                                        },
+                                        {
+                                            key: "/time-off",
+                                            label: 'Time off Lieu',
+                                        },
+                                        {
+                                            key: "/carry-forward",
+                                            label: 'Carry Forward',
+                                        },
+                                        {
+                                            key: "/applications-history",
+                                            label: 'Application History',
                                         },
                                     ]
                                 },
@@ -177,33 +208,6 @@ const Mainlayout = () => {
                                     ]
                                 },
                                 {
-                                    key: '/leave',
-                                    icon: <BiMessageError style={{ fontSize: 20 }} />,
-                                    label: 'Leave',
-                                    children: [
-                                        {
-                                            key: "/leave-requsition",
-                                            label: 'Leave Requsition',
-                                        },
-                                        {
-                                            key: "/leave-reimbursement",
-                                            label: 'Leave Reimbursement',
-                                        },
-                                        {
-                                            key: "/time-off",
-                                            label: 'Time off Lieu',
-                                        },
-                                        {
-                                            key: "/carry-forward",
-                                            label: 'Carry Forward',
-                                        },
-                                        {
-                                            key: "/applications-history",
-                                            label: 'Application History',
-                                        },
-                                    ]
-                                },
-                                {
                                     key: '/login',
                                     icon: <LogoutOutlined />,
                                     label: 'Sign Out',
@@ -215,7 +219,7 @@ const Mainlayout = () => {
                     </Sider>
                     <Content className='contentStyle'
                         style={{
-                            marginLeft: 230,
+                            marginLeft: 220,
                             padding: 24,
                         }}>
                         <Outlet />
