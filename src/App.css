@@ -171,13 +171,23 @@ ant-layout .ant-layout-sider-trigger {
   cursor: pointer;
   transition: all 0.2s;
 }
-/* 
-@media only screen and (max-width: 768px) {
-  .ant-layout-sider{
-    display: none !important;
+
+@media screen and (max-width: 768px) {
+  .headerMenu {
+    display: none;
   }
 
-  .contentStyle{
-    width: 100%;
+  .menuIcon {
+    display: block; /* Show the menu icon on smaller screens */
   }
-} */
+
+  .sideStyle {
+    display: none; /* Hide the Sider component on smaller screens */
+  }
+
+  .contentStyle {
+    margin-left: 0; /* Adjust content margin for smaller screens */
+    width: 100%;
+    padding: 0;
+  }
+}
