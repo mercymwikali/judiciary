@@ -61,7 +61,7 @@ body {
 }
 
 .sideStyle {
-  height:100dvh;
+  height:100vh;
   line-height: 22px;
   padding-bottom: 22px;
   color: #386656;
@@ -73,10 +73,10 @@ body {
 
 
 .ant-layout-sider {
-  flex: 0 0 220px !important;
-  max-width: 220px !important;
-  min-width: 220px !important;
-  width: 220px !important;
+  flex: 0 0 200px !important;
+  max-width: 200px !important;
+  min-width: 200px !important;
+  width: 200px !important;
   height: 100dvh !important;
   overflow-y: scroll !important;
 }
@@ -86,6 +86,16 @@ body {
   max-width: 80px !important;
   min-width: 80px !important;
   width: 80px !important;
+}
+
+.ant-menu-item {
+  padding-top: 8px; /* Adjust the padding as needed */
+  padding-bottom: 8px; /* Adjust the padding as needed */
+}
+
+.scrollable-menu {
+  overflow-y: auto;
+  max-height: calc(100vh - 64px); /* Adjust the max-height based on your layout */
 }
 
 .bg-primary {
@@ -145,6 +155,21 @@ thead {
   background-color: transparent;
   color: #2f463d;
   border: none;
+}
+
+
+ant-layout .ant-layout-sider-trigger {
+  position: fixed;
+  bottom: 0;
+  z-index: 1;
+  height: 48px;
+  color: #fff;
+  line-height: 28px;
+  width: 200px !important;
+  text-align: center;
+  background: #386656 !important;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 /* 
 @media only screen and (max-width: 768px) {

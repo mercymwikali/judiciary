@@ -15,7 +15,9 @@ import {
     BellFilled,
     MailOutlined,
     FullscreenExitOutlined,
-    DesktopOutlined 
+    DesktopOutlined,
+    ArrowDownOutlined,
+    ArrowLeftOutlined
 } from '@ant-design/icons';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import logo from '../assets/Images/logo.png';
@@ -27,6 +29,7 @@ import Sigonout from './Signout';
 
 
 const Mainlayout = () => {
+    const [collapsed, setCollapsed] = useState(false);
     const navigate = useNavigate();
     const [openKeys, setOpenKeys] = useState(['/']);
     const rootSubmenuKeys = ['/salary-info', '/leave', '/Appraisals', '/Requisitions', '/assets-management', '/purchase', '/Onboarding','/Training','/Fleet-management','/Staff Exit', '/ICT-Services'];
@@ -73,6 +76,9 @@ const Mainlayout = () => {
                 </Header>
                 <Layout hasSider>
                     <Sider className='sideStyle'
+                    collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}
+                    breakpoint="lg"
+
                     >
                         <Menu
                             theme="light"
@@ -84,9 +90,10 @@ const Mainlayout = () => {
                                 navigate(key);
                             }}
                             style={{
-                                paddingBottom: '20px',
+                                paddingBottom: '70px',
                                 overflowY: 'scroll'
                             }}
+                            className='scrollable-menu'
                             items={[
                                 {
                                     key: '/',
@@ -321,10 +328,11 @@ const Mainlayout = () => {
                                 },
                             ]}
                         />
-                    </Sider>
+                                           </Sider>
                     <Content className='contentStyle'
                         style={{
-                            marginLeft: 220,
+                            marginLeft: collapsed ? 80 : 200,
+                            transition: 'all 0.2s',
                             padding: 24,
                         }}>
                         <Outlet />
