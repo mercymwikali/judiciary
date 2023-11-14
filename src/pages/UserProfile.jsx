@@ -41,7 +41,7 @@ const UserProfile = () => {
   }, []);
 
   return (
-    <div style={{ padding: '20px' }}>
+    <div>
       <Card>
         <div className="text-center">
         <img width={230} src={logo} className='ps-3 py-2' alt='logo' />
