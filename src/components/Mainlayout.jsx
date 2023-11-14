@@ -78,6 +78,8 @@ const Mainlayout = () => {
                     <Sider className='sideStyle'
                     collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}
                     breakpoint="lg"
+                    collapsedWidth="0"
+
 
                     >
                         <Menu
