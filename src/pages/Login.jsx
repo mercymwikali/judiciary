@@ -12,13 +12,13 @@ const Login = () => {
 
     return (
         <div className='container-fluid h-100 py-5' style={{ backgroundColor: '#D6B300' }}>
-            <div className="row d-flex justify-content-center align-items-center h-100">
+            <div className="row d-flex justify-content-center align-items-center">
                 <div className="col-xl-10">
                     <div className="card rounded-3 text-black">
                         <div className="row g-0">
                             <div className="col-lg-6 d-flex align-items-center gradient-custom-2" style={{ backgroundColor: "#2F463E" }}>
                                 <div className="text-center w-100 px-3 py-4 p-md-5 mx-md-4">
-                                    <img width={350} src={logo} className='ps-4 py-3' alt='logo' />
+                                    <img width={500} src={logo} className='ps-4 py-3' alt='logo' />
                                 </div>
                             </div>
                             <div className="col-lg-6">

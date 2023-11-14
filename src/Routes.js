@@ -24,6 +24,19 @@ import TimeOff from "./pages/TimeOff";
 import CarryForward from "./pages/CarryForward";
 import ApplicationHist from "./pages/ApplicationHist";
 import Login from "./pages/Login";
+import FuelReq from "./pages/FuelReq";
+import FuelRecharge from "./pages/FuelRecharge";
+import Service from "./pages/Service";
+import ExamsPayment from "./pages/ExamsPay";
+import TrainingPayment from "./pages/TrainingPayment";
+import CertiicationPayment from "./pages/CertificationPayment";
+import ExitInterview from "./pages/ExitInterview";
+import StaffClearance from "./pages/StaffClearance";
+import StaffInduction from "./pages/StaffInduction";
+import UserSupport from "./pages/UserSupport";
+import ICTAssetReq from "./pages/ICTAssetReq";
+import AssignedICTReq from "./pages/AssignedICTReq";
+import ICTMaintenance from "./pages/ICTMaintenance";
 
 function AppRoutes() {
     return (
@@ -54,6 +67,19 @@ function AppRoutes() {
                     <Route path="/time-off" element={<TimeOff />} />
                     <Route path="/carry-forward" element={<CarryForward />} />
                     <Route path="/applications-history" element={<ApplicationHist />} />
+                    <Route path="/Fuel-Requisition" element={<FuelReq />} />
+                    <Route path="/Fuel-card-recharge" element={<FuelRecharge />} />
+                    <Route path="/Service/Maintenance" element={<Service />} />
+                    <Route path="/ExamsPayment" element={<ExamsPayment />} />
+                    <Route path="/Training-payment" element={<TrainingPayment />} />
+                    <Route path="/CertificationPayment" element={<CertiicationPayment />} />
+                    <Route path="/exit-interview" element={<ExitInterview />} />
+                    <Route path="/Staff-clearance" element={<StaffClearance />} />
+                    <Route path="/staffInduction" element={<StaffInduction />} />
+                    <Route path="/user-support-req" element={<UserSupport />} />
+                    <Route path="/ICT-Asset-Req" element={<ICTAssetReq />} />
+                    <Route path="/Assigned-ICT-Req" element={<AssignedICTReq />} />
+                    <Route path="/ICT-services-Maintenance" element={<ICTMaintenance />} />
 
                 </Route>
             </Routes>

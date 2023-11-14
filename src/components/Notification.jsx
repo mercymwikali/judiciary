@@ -25,8 +25,8 @@ const Notification = () => {
     };
 
     return (
-            <div className="card px-2 " style={{ width: "24rem", height: "auto" }}>
-                <div className="card-title text-primary pt-2 fw-bold ">Notifications</div>
+            <div className="card p-2 " style={{ width: "20rem", height: "auto" }}>
+                <div className="card-title text-primary fw-bold ">Notifications</div>
                 <ul className="list-group">
                     {notifications.map((notification) => (
                         <li

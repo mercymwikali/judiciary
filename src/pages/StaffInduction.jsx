@@ -5,7 +5,7 @@ import { PlusOutlined, InboxOutlined } from '@ant-design/icons'
 import logo from '../assets/Images/logo.png';
 import { toast } from "react-toastify";
 
-function TravelReq(params) {
+function StaffInduction() {
     const [approvedLeaveData, setApprovedLeaveData] = useState([]);
     const [selectedLeaveType, setSelectedLeaveType] = useState('');
     const [selectedAppliedDays, setSelectedAppliedDays] = useState('');
@@ -20,7 +20,7 @@ function TravelReq(params) {
             <div className="card-body">
                 <div className="text-center">
                     <img width={200} src={logo} className='ps-3 py-2' alt='logo' />
-                    < h4 className='pt-1 text-primary'>Travel Advance List</h4>
+                    < h4 className='pt-1 text-primary'>Staff Induction List</h4>
                 </div>
                 <hr></hr>
                 <div className="d-grid my-3 col-md-8 col-lg-6 d-md-block">
@@ -32,11 +32,11 @@ function TravelReq(params) {
                             <tr>
                                 <th className='small text-primary text-center bg-secondary' scope="col">Action</th>
                                 <th className='small text-primary text-center bg-secondary' scope="col">No</th>
-                                <th className='small text-primary text-center bg-secondary' scope="col">Date</th>
-                                <th className='small text-primary text-center bg-secondary' scope="col">Req Date</th>
-                                <th className='small text-primary text-center bg-secondary' scope="col">Donor</th>
                                 <th className='small text-primary text-center bg-secondary' scope="col">Project</th>
-                                <th className='small text-primary text-center bg-secondary' scope="col">Amount</th>
+                                <th className='small text-primary text-center bg-secondary' scope="col">Start Date</th>
+                                <th className='small text-primary text-center bg-secondary' scope="col">End Date</th>
+                                <th className='small text-primary text-center bg-secondary' scope="col">Induction Period</th>
+                                <th className='small text-primary text-center bg-secondary' scope="col">Duration</th>
                                 <th className='small text-primary text-center bg-secondary' scope="col"> Status</th>
                             </tr>
                         </thead>
@@ -59,14 +59,12 @@ function TravelReq(params) {
                     </table>
                 </div>
             </div>
-            <TravelReqModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+            <StaffInductionModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
         </Card>
     );
 };
 
-
-
-function TravelReqModal({ setIsModalOpen, isModalOpen }) {
+function StaffInductionModal({ setIsModalOpen, isModalOpen }) {
     const [Year, setYear] = useState([]);
     const [loading, setLoading] = useState(false);
     const [selectedAppliedDays, setSelectedAppliedDays] = useState('');
@@ -153,13 +151,13 @@ function TravelReqModal({ setIsModalOpen, isModalOpen }) {
                 </Button>,
             ]}>
             <div className="text-center">
-                <img width={300} src={logo} className='ps-4 ' alt='logo' />
-                <h4 className="modal-title text-primary pt-2" ><u>New Travel Advance Request</u></h4>
+                <img width={300} src={logo} className='ps-5 ' alt='logo' />
+                <h4 className="modal-title text-primary pt-2" ><u>New Staff Induction</u></h4>
             </div>
             <hr></hr>
             <div className="row g-4">
                 <div className="col-12 col-md-3">
-                    <p className='fw-normal text-primary  ls-wider text-decoration-underline'>Travel Type  :</p>
+                    <p className='fw-normal text-primary  ls-wider text-decoration-underline'>Donor  :</p>
                     <select
                         className="form-select"
                         aria-label="Default select example"
@@ -167,7 +165,7 @@ function TravelReqModal({ setIsModalOpen, isModalOpen }) {
                         onChange={(e) => setYear(e.target.value)}
                     >
                         <option value="" disabled>
-                            - - Select Appraisal Period - -
+                            - - Select Donor - -
                         </option>
                         {years.map((year, index) => (
                             <option key={index} value={year}>
@@ -177,7 +175,7 @@ function TravelReqModal({ setIsModalOpen, isModalOpen }) {
                     </select>
                 </div>
                 <div className="col-12 col-md-3">
-                    <p className='fw-normal text-primary ls-wider text-decoration-underline'>Date Required :</p>
+                    <p className='fw-normal text-primary ls-wider text-decoration-underline'>Project :</p>
                     <select
                         className="form-select"
                         aria-label="Default select example"
@@ -195,7 +193,7 @@ function TravelReqModal({ setIsModalOpen, isModalOpen }) {
                     </select>
                 </div>
                 <div className="col-12 col-md-3">
-                    <p className='fw-normal text-primary ls-wider text-decoration-underline'>Date of Travel :</p>
+                    <p className='fw-normal text-primary ls-wider text-decoration-underline'>Start Date :</p>
                     <select
                         className="form-select"
                         aria-label="Default select example"
@@ -203,7 +201,7 @@ function TravelReqModal({ setIsModalOpen, isModalOpen }) {
                         onChange={(e) => setYear(e.target.value)}
                     >
                         <option value="" disabled>
-                            - - Select Supervisor - -
+                            - - Select Project - -
                         </option>
                         {months.map((month, index) => (
                             <option key={index} value={month}>
@@ -213,7 +211,7 @@ function TravelReqModal({ setIsModalOpen, isModalOpen }) {
                     </select>
                 </div>
                 <div className="col-12 col-md-3">
-                    <p className='fw-normal text-primary ls-wider text-decoration-underline'>Date of Travel :</p>
+                    <p className='fw-normal text-primary ls-wider text-decoration-underline'>End Date :</p>
                     <select
                         className="form-select"
                         aria-label="Default select example"
@@ -221,81 +219,7 @@ function TravelReqModal({ setIsModalOpen, isModalOpen }) {
                         onChange={(e) => setYear(e.target.value)}
                     >
                         <option value="" disabled>
-                            - - Select Supervisor - -
-                        </option>
-                        {months.map((month, index) => (
-                            <option key={index} value={month}>
-                                {month}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-            </div>
-            <div className="row g-4 mt-3">
-                <div className="col-12 col-md-3">
-                    <p className='fw-normal text-primary  ls-wider text-decoration-underline'>Expected Return Date  :</p>
-                    <select
-                        className="form-select"
-                        aria-label="Default select example"
-                        value={Year}
-                        onChange={(e) => setYear(e.target.value)}
-                    >
-                        <option value="" disabled>
-                            - - Select Expected Return Date - -
-                        </option>
-                        {years.map((year, index) => (
-                            <option key={index} value={year}>
-                                {year}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-                <div className="col-12 col-md-3">
-                    <p className='fw-normal text-primary ls-wider text-decoration-underline'>Donor Code :</p>
-                    <select
-                        className="form-select"
-                        aria-label="Default select example"
-                        value={Year}
-                        onChange={(e) => setYear(e.target.value)}
-                    >
-                        <option value="" disabled>
-                            - - Select Donor Code - -
-                        </option>
-                        {months.map((month, index) => (
-                            <option key={index} value={month}>
-                                {month}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-                <div className="col-12 col-md-3">
-                    <p className='fw-normal text-primary ls-wider text-decoration-underline'>Donor Name :</p>
-                    <select
-                        className="form-select"
-                        aria-label="Default select example"
-                        value={Year}
-                        onChange={(e) => setYear(e.target.value)}
-                    >
-                        <option value="" disabled>
-                            - - Select Donor Name - -
-                        </option>
-                        {months.map((month, index) => (
-                            <option key={index} value={month}>
-                                {month}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-                <div className="col-12 col-md-3">
-                    <p className='fw-normal text-primary ls-wider text-decoration-underline'>Project Code:</p>
-                    <select
-                        className="form-select"
-                        aria-label="Default select example"
-                        value={Year}
-                        onChange={(e) => setYear(e.target.value)}
-                    >
-                        <option value="" disabled>
-                            - - Select Project Code - -
+                            - - Select Requisition Type - -
                         </option>
                         {months.map((month, index) => (
                             <option key={index} value={month}>
@@ -307,7 +231,7 @@ function TravelReqModal({ setIsModalOpen, isModalOpen }) {
             </div>
             <div className="row g-4 mt-3">
                 <div className="col-12 col-md-3">
-                    <p className='fw-normal text-primary  ls-wider text-decoration-underline'>Project Name:</p>
+                    <p className='fw-normal text-primary ls-wider text-decoration-underline'>Induction Topic :</p>
                     <select
                         className="form-select"
                         aria-label="Default select example"
@@ -315,7 +239,43 @@ function TravelReqModal({ setIsModalOpen, isModalOpen }) {
                         onChange={(e) => setYear(e.target.value)}
                     >
                         <option value="" disabled>
-                            - - Select Project Name - -
+                            - - Select Vehicle - -
+                        </option>
+                        {months.map((month, index) => (
+                            <option key={index} value={month}>
+                                {month}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                <div className="col-12 col-md-3">
+                    <p className='fw-normal text-primary ls-wider text-decoration-underline'>No of Days:</p>
+                    <select
+                        className="form-select"
+                        aria-label="Default select example"
+                        value={Year}
+                        onChange={(e) => setYear(e.target.value)}
+                    >
+                        <option value="" disabled>
+                            - - Select Vendor - -
+                        </option>
+                        {months.map((month, index) => (
+                            <option key={index} value={month}>
+                                {month}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                <div className="col-12 col-md-3">
+                    <p className='fw-normal text-primary  ls-wider text-decoration-underline'>Induction Venue:</p>
+                    <select
+                        className="form-select"
+                        aria-label="Default select example"
+                        value={Year}
+                        onChange={(e) => setYear(e.target.value)}
+                    >
+                        <option value="" disabled>
+                            - - Select Responsibility Center - -
                         </option>
                         {years.map((year, index) => (
                             <option key={index} value={year}>
@@ -325,99 +285,7 @@ function TravelReqModal({ setIsModalOpen, isModalOpen }) {
                     </select>
                 </div>
                 <div className="col-12 col-md-3">
-                    <p className='fw-normal text-primary ls-wider text-decoration-underline'>Program Area Code :</p>
-                    <select
-                        className="form-select"
-                        aria-label="Default select example"
-                        value={Year}
-                        onChange={(e) => setYear(e.target.value)}
-                    >
-                        <option value="" disabled>
-                            - - Select Program Area Code - -
-                        </option>
-                        {months.map((month, index) => (
-                            <option key={index} value={month}>
-                                {month}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-                <div className="col-12 col-md-3">
-                    <p className='fw-normal text-primary ls-wider text-decoration-underline'>Program Area Name :</p>
-                    <select
-                        className="form-select"
-                        aria-label="Default select example"
-                        value={Year}
-                        onChange={(e) => setYear(e.target.value)}
-                    >
-                        <option value="" disabled>
-                            - - Select Program Area Name - -
-                        </option>
-                        {months.map((month, index) => (
-                            <option key={index} value={month}>
-                                {month}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-                <div className="col-12 col-md-3">
-                    <p className='fw-normal text-primary ls-wider text-decoration-underline'>Sub-Program Area Code :</p>
-                    <select
-                        className="form-select"
-                        aria-label="Default select example"
-                        value={Year}
-                        onChange={(e) => setYear(e.target.value)}
-                    >
-                        <option value="" disabled>
-                            - - Select sub-Program Area Code - -
-                        </option>
-                        {months.map((month, index) => (
-                            <option key={index} value={month}>
-                                {month}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-            </div>
-            <div className="row g-4 mt-3">
-                <div className="col-12 col-md-3">
-                    <p className='fw-normal  text-primary  ls-wider text-decoration-underline'>Sub-Program Area Name :</p>
-                    <select
-                        className="form-select"
-                        aria-label="Default select example"
-                        value={Year}
-                        onChange={(e) => setYear(e.target.value)}
-                    >
-                        <option value="" disabled>
-                            - - Select sub-Program Area Name - -
-                        </option>
-                        {years.map((year, index) => (
-                            <option key={index} value={year}>
-                                {year}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-                <div className="col-12 col-md-3">
-                    <p className='fw-normal  text-primary ls-wider text-decoration-underline'>Activity/Beneficiary Code :</p>
-                    <select
-                        className="form-select"
-                        aria-label="Default select example"
-                        value={Year}
-                        onChange={(e) => setYear(e.target.value)}
-                    >
-                        <option value="" disabled>
-                            - - Select Activity/Beneficiary Code  - -
-                        </option>
-                        {months.map((month, index) => (
-                            <option key={index} value={month}>
-                                {month}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-                <div className="col-12 col-md-3">
-                    <p className='fw-normal  text-primary ls-wider text-decoration-underline'>Activity/Beneficiary Name :</p>
+                    <p className='fw-normal  text-primary ls-wider text-decoration-underline'>Responsibilty Center :</p>
                     <select
                         className="form-select"
                         aria-label="Default select example"
@@ -433,19 +301,20 @@ function TravelReqModal({ setIsModalOpen, isModalOpen }) {
                             </option>
                         ))}
                     </select>
-                </div>
+                </div >
             </div>
             <hr></hr>
+            
             <div className="col-12 px-3 pb-4 " style={{ backgroundColor: '#d5d3d3', cursor: 'pointer' }}>
 
-                <p className='h5 fw-normal text-primary ls-wider text-decoration-underline'>Remarks</p>
+                <p className=' h6 text-primary ls-wider text-decoration-underline'>Remarks</p>
                 <div className="input-group">
                     <TextArea className='col-12' rows={4}>
                         <br></br>
                     </TextArea>
                 </div>
             </div>
-            <div className=" d-grid col-12 col-md-6 mx-auto my-3"> {/* Center-align the button */}
+                        <div className=" d-grid col-12 col-md-6 mx-auto my-3"> {/* Center-align the button */}
                 <button
                     type="button"
                     className="btn btn-secondary bt-sm-sm bt-md-sm my-3"
@@ -455,9 +324,8 @@ function TravelReqModal({ setIsModalOpen, isModalOpen }) {
                 </button>
             </div>
 
-        </Modal>
+        </Modal >
     );
 };
 
-
-export default TravelReq;
+export default StaffInduction;

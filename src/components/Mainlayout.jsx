@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'; // Import useState
 import { Layout, Menu, Badge, Avatar, Image, Space } from 'antd'
 import Sider from 'antd/es/layout/Sider'
 import { Content, Footer, Header } from 'antd/es/layout/layout'
@@ -7,29 +7,44 @@ import {
     MenuUnfoldOutlined,
     LogoutOutlined,
     UsergroupAddOutlined,
-    MoneyCollectOutlined,
+    BookOutlined,
     UserOutlined,
     AccountBookOutlined,
     AppstoreOutlined,
-    HourglassFilled,
+    CarOutlined,
     BellFilled,
-    MailOutlined
+    MailOutlined,
+    FullscreenExitOutlined,
+    DesktopOutlined 
 } from '@ant-design/icons';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import logo from '../assets/Images/logo.png';
 import { HiOutlineClipboardList } from 'react-icons/hi';
 import { BiCalendar, BiMessageError } from 'react-icons/bi';
 import { TbTriangleSquareCircle, TbCreditCard } from 'react-icons/tb';
+import {FaUserFriends } from 'react-icons/fa';
 import Sigonout from './Signout';
 
 
 const Mainlayout = () => {
     const navigate = useNavigate();
+    const [openKeys, setOpenKeys] = useState(['/']);
+    const rootSubmenuKeys = ['/salary-info', '/leave', '/Appraisals', '/Requisitions', '/assets-management', '/purchase', '/Onboarding','/Training','/Fleet-management','/Staff Exit', '/ICT-Services'];
+
+    const onOpenChange = (keys) => {
+        const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1);
+        setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
+        if (latestOpenKey && rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
+            setOpenKeys(keys);
+        } else {
+            setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
+        }
+    }
 
     return (
         <Space direction='vertical'
             style={{ width: '100%' }}
-            size={[0, 48]}>
+        >
             <Layout>
                 <Header className='headerstyle'>
                     <Link to='/' ><img width={180} src={logo} className='ps-3' alt='logo' /></Link>
@@ -63,13 +78,15 @@ const Mainlayout = () => {
                             theme="light"
                             mode="inline"
                             defaultSelectedKeys={['/']}
+                            openKeys={openKeys}
+                            onOpenChange={onOpenChange}
                             onClick={({ key }) => {
                                 navigate(key);
                             }}
-                            // style={{
-                            //     paddingBottom:'20px',
-                            //     overflowY:'scroll'
-                            // }}
+                            style={{
+                                paddingBottom: '20px',
+                                overflowY: 'scroll'
+                            }}
                             items={[
                                 {
                                     key: '/',
@@ -144,6 +161,18 @@ const Mainlayout = () => {
                                     ]
                                 },
                                 {
+                                    key: '/Onboarding',
+                                    icon: <FaUserFriends  style={{ fontSize: 20 }} />,
+                                    label: 'Staff Onboarding',
+                                    children: [
+                                        {
+                                            key: "/staffInduction",
+                                            label: 'Staff Induction',
+                                        },
+                                        
+                                    ]
+                                },
+                                {
                                     key: '/Requisitions',
                                     icon: <AccountBookOutlined style={{ fontSize: 20 }} />,
                                     label: 'Requisitions',
@@ -187,24 +216,100 @@ const Mainlayout = () => {
 
                                     ]
                                 },
+                                // {
+                                //     key: '/purchase',
+                                //     icon: <TbCreditCard style={{ fontSize: 20 }} />,
+                                //     label: 'Purchase & Operations',
+                                //     children: [
+                                //         {
+                                //             key: "/purchase-req",
+                                //             label: 'Purchase Requistion',
+                                //         },
+                                //         {
+                                //             key: "/store-req",
+                                //             label: 'Store Requisition',
+                                //         },
+                                //         {
+                                //             key: "/Asset-requisition",
+                                //             label: 'Asset Requisition',
+                                //         },
+
+                                //     ]
+                                // },
                                 {
-                                    key: '/purchase',
-                                    icon: <TbCreditCard style={{ fontSize: 20 }} />,
-                                    label: 'Purchase & Operations',
+                                    key: '/Fleet-management',
+                                    icon: <CarOutlined style={{ fontSize: 20 }} />,
+                                    label: 'Fleet Management',
                                     children: [
                                         {
-                                            key: "/purchase-req",
-                                            label: 'Purchase Requistion',
+                                            key: "/Fuel-Requisition",
+                                            label: 'Fuel Requisition',
                                         },
                                         {
-                                            key: "/store-req",
-                                            label: 'Store Requisition',
+                                            key: "/Fuel-card-recharge",
+                                            label: 'Fuel Card Recharge',
                                         },
                                         {
-                                            key: "/Asset-requisition",
-                                            label: 'Asset Requisition',
+                                            key: "/Service/Maintenance",
+                                            label: 'Service/Maintenance',
+                                        }
+                                    ]
+                                },
+                                {
+                                    key: '/ICT-Services',
+                                    icon: <DesktopOutlined style={{ fontSize: 20 }} />,
+                                    label: 'ICT Services',
+                                    children: [
+                                        {
+                                            key: "/user-support-req",
+                                            label: 'User Support Request',
                                         },
-
+                                        {
+                                            key: "/ICT-Asset-Req",
+                                            label: 'ICT Asset Requisition',
+                                        },
+                                        {
+                                            key: "/Assigned-ICT-Req",
+                                            label: 'Assigned ICT Requests',
+                                        },
+                                        {
+                                            key: "/ICT-services-Maintenance",
+                                            label: 'ICT Maintenance',
+                                        }
+                                    ]
+                                },
+                                {
+                                    key: '/Training',
+                                    icon: <BookOutlined style={{ fontSize: 20 }} />,
+                                    label: 'Training',
+                                    children: [
+                                        {
+                                            key: "/ExamsPayment",
+                                            label: 'Pay for Exams',
+                                        },
+                                        {
+                                            key: "/Training-payment",
+                                            label: 'Pay For Training',
+                                        },
+                                        {
+                                            key: "/CertificationPayment",
+                                            label: 'Pay for Certification',
+                                        }
+                                    ]
+                                },
+                                {
+                                    key: '/Staff Exit',
+                                    icon: <FullscreenExitOutlined style={{ fontSize: 20 }} />,
+                                    label: 'Staff Exit',
+                                    children: [
+                                        {
+                                            key: "/exit-interview",
+                                            label: 'Exit Interview',
+                                        },
+                                        {
+                                            key: "/Staff-clearance",
+                                            label: 'Staff Clearance',
+                                        },
                                     ]
                                 },
                                 {

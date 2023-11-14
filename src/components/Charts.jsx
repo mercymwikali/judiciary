@@ -1,75 +1,114 @@
-import React, { useState } from 'react';
-import Chart from 'react-apexcharts';
+import * as React from 'react';
+import { BarChart } from '@mui/x-charts/BarChart';
 
-const Charts = () => {
-  const data = [
-    { x: 'Jan', y: 38 },
-    { x: 'Feb', y: 52 },
-    { x: 'March', y: 61 },
-    { x: 'April', y: 145 },
-    { x: 'May', y: 48 },
-    { x: 'June', y: 52 },
-    { x: 'July', y: 38 },
-    { x: 'Aug', y: 38 },
-    { x: 'Sept', y: 38 },
-    { x: 'Oct', y: 38 },
-    { x: 'Nov', y: 38 },
-    { x: 'Dec', y: 38 },
-  ];
+const Charts = {
+  xAxis: [
+    {
+      label: 'rainfall (mm)',
+      scaleType: 'band', // Add this line to specify the scale type
 
-  const color = '#D6B300';
-
-  const [state, setState] = useState({
-    options: {
-      chart: {
-        type: 'bar',
-      },
-      plotOptions: {
-        bar: {
-          vertical: true,
-          colors: {
-            ranges: [{
-              from: 0,
-              to: 0,
-              color: color,
-            }],
-          },
-        },
-      },
-      xaxis: {
-        categories: data.map((item) => item.x),
-      },
     },
-    series: [
-      {
-        name: 'Series 1', // Name for the first series
-        data: data.map((item) => item.y),
-      },
-      {
-        name: 'Series 2', // Name for the second series
-        data: data.map((item) => item.y),
-      },
-    ],
-  });
-
-  return (
-    <div className=" mt-4 g-3">
-      <div className="row g-3">
-        <div className="col-12 col-md-6 card gx-md-3">
-          <h3 className="mb-4 text-primary h4 p-2">Staff Advances</h3>
-          <div className="pb-3">
-            <Chart options={state.options} series={state.series} type="bar" width="450" color='#000' />
-          </div>
-        </div>
-        <div className="col-12 col-md-6 card gx-md-3">
-          <h3 className="mb-4 text-primary h4 p-2">Staff Advances</h3>
-          <div className="pb-3">
-            <Chart options={state.options} series={state.series} type="area" width="450" />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+  ],
+  width: 500,
+  height: 400,
 };
+const dataset = [
+  {
+    london: 59,
+    paris: 57,
+    newYork: 86,
+    seoul: 21,
+    month: 'Jan',
+  },
+  {
+    london: 50,
+    paris: 52,
+    newYork: 78,
+    seoul: 28,
+    month: 'Fev',
+  },
+  {
+    london: 47,
+    paris: 53,
+    newYork: 106,
+    seoul: 41,
+    month: 'Mar',
+  },
+  {
+    london: 54,
+    paris: 56,
+    newYork: 92,
+    seoul: 73,
+    month: 'Apr',
+  },
+  {
+    london: 57,
+    paris: 69,
+    newYork: 92,
+    seoul: 99,
+    month: 'May',
+  },
+  {
+    london: 60,
+    paris: 63,
+    newYork: 103,
+    seoul: 144,
+    month: 'June',
+  },
+  {
+    london: 59,
+    paris: 60,
+    newYork: 105,
+    seoul: 319,
+    month: 'July',
+  },
+  {
+    london: 65,
+    paris: 60,
+    newYork: 106,
+    seoul: 249,
+    month: 'Aug',
+  },
+  {
+    london: 51,
+    paris: 51,
+    newYork: 95,
+    seoul: 131,
+    month: 'Sept',
+  },
+  {
+    london: 60,
+    paris: 65,
+    newYork: 97,
+    seoul: 55,
+    month: 'Oct',
+  },
+  {
+    london: 67,
+    paris: 64,
+    newYork: 76,
+    seoul: 48,
+    month: 'Nov',
+  },
+  {
+    london: 61,
+    paris: 70,
+    newYork: 103,
+    seoul: 25,
+    month: 'Dec',
+  },
+];
 
-export default Charts;
+const valueFormatter = (value) => `${value}mm`;
+
+export default function HorizontalBars() {
+  return (
+    <BarChart
+      dataset={dataset}
+      yAxis={[{ scaleType: 'band', dataKey: 'month' }]}
+      series={[{ dataKey: 'seoul', label: 'Seoul rainfall', valueFormatter }]}
+      layout="vertical"
+      {...Charts}
+    />
+  );
+}

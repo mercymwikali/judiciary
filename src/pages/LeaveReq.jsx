@@ -306,7 +306,6 @@ function LeaveRequestModal({ setIsModalOpen, isModalOpen }) {
                                 Support for a single or bulk upload.                          </p>
                         </p>
                     </Dragger>
-
                 </div>
                 <div className=" mt-3">
                     <p className='h5 fw-bold text-primary ls-wider text-decoration-underline'>Remarks</p>
