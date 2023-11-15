@@ -7,7 +7,7 @@ function Dashboard() {
   return (
     <div className="container-fluid px-1">
       <div className="row g-3">
-        <div className="col-md-2">
+        <div className="col-6 col-md-2">
         <Card className=' text-center gy-3' style={{ backgroundColor: "#ffe5e7" }}>
             <Avatar shape="square" size="large" icon={<UserOutlined style={{ color: '#fff' }} />} style={{ backgroundColor: '#d0323a' }} />
             <p className='h4 text-primary py-2'>125</p>
@@ -24,7 +24,7 @@ function Dashboard() {
             />
           </Card>
         </div>
-        <div className="col-md-2">
+        <div className="col-6 col-md-2">
         <Card className=' text-center' style={{ backgroundColor: "#e8fff0" }}>
             <Avatar shape="square" size="large" icon={<UsergroupAddOutlined style={{ color: '#fff' }} />} style={{ backgroundColor: '#22A550' }} />
             <p className='h4 text-primary py-2'>25</p>
@@ -41,7 +41,7 @@ function Dashboard() {
             />
           </Card>
         </div>
-        <div className="col-md-2">
+        <div className="col-6 col-md-2">
         <Card className=' text-center' style={{ backgroundColor: "#EEEEEE" }}>
             <Avatar shape="square" size="large" icon={<CreditCardOutlined style={{ color: '#fff' }} />} style={{ backgroundColor: '#272425' }} />
             <p className='h4 text-primary '>$1000</p>
@@ -58,7 +58,7 @@ function Dashboard() {
             />
           </Card>
         </div>
-        <div className="col-md-2">
+        <div className="col-6 col-md-2">
         <Card className=' text-center' style={{ backgroundColor: "#ffe5e7" }}>
             <Avatar shape="square" size="large" icon={<CreditCardOutlined style={{ color: '#fff' }} />} style={{ backgroundColor: '#272425' }} />
             <p className='h4 text-primary'>$1000</p>
