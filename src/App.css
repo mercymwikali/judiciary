@@ -73,10 +73,10 @@ body {
 
 
 .ant-layout-sider {
-  flex: 0 0 200px !important;
-  max-width: 200px !important;
-  min-width: 200px !important;
-  width: 200px !important;
+  flex: 0 0 230px !important;
+  max-width: 230px !important;
+  min-width: 230px !important;
+  width: 230px !important;
   height: 100dvh !important;
   overflow-y: scroll !important;
 }
@@ -158,19 +158,6 @@ thead {
 }
 
 
-ant-layout .ant-layout-sider-trigger {
-  position: fixed;
-  bottom: 0;
-  z-index: 1;
-  height: 48px;
-  color: #fff;
-  line-height: 28px;
-  width: 200px !important;
-  text-align: center;
-  background: #386656 !important;
-  cursor: pointer;
-  transition: all 0.2s;
-}
 
 @media screen and (max-width: 768px) {
   .headerMenu {
@@ -182,17 +169,44 @@ ant-layout .ant-layout-sider-trigger {
   }
 
   .sideStyle {
-    display: none; /* Hide the Sider component on smaller screens */
+    display: block; /* Hide the Sider component on smaller screens */
+    z-index: 1;
   }
 
+  .ant-layout-sider {
+    flex: 0 0 230px !important;
+    max-width: 230px !important;
+    min-width: 230px !important;
+    width: 230px !important;
+    height: 100dvh !important;
+    overflow-y: scroll !important;
+  }
+  
+  .ant-layout-sider-collapsed {
+    flex: 0 0 80px !important;
+    max-width: 0px !important;
+    min-width:0px !important;
+    width: 0 !important;
+  }
   .contentStyle {
     margin-left: 0; /* Adjust content margin for smaller screens */
     width: 100%;
     padding: 0;
   }
 
-  main{
+  main {
     margin-left: 0 !important;
   }
+
+  .smallscreens{
+    display: none;
+  }
   
+}
+
+
+@media screen and (min-width: 768px) {
+  .bigscreens{
+    display: none;
+  }
 }
