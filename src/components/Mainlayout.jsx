@@ -80,7 +80,7 @@ const Mainlayout = () => {
                     </div>
 
                 </Header>
-                <Layout hasSider>
+                <Layout >
                     <Sider className='sideStyle'
                         collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}
                         breakpoint="lg"

@@ -190,4 +190,9 @@ ant-layout .ant-layout-sider-trigger {
     width: 100%;
     padding: 0;
   }
+
+  main{
+    margin-left: 0 !important;
+  }
+  
 }
