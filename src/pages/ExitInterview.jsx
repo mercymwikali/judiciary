@@ -103,9 +103,8 @@ function ExitInterview() {
 
     return (
         <Card open={isCardOpen} onOk={handleOk} onCancel={handleCancel} style={{
-            top: 20,
         }}
-            width='75%'
+            width='100%'
             class="Card-dialog Card-fullscreen-sm-down Card-dialog-scrollable"
             footer={[
                 <Button key="back" onClick={handleCancel}>

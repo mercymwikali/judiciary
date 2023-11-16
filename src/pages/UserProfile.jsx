@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Tabs, Card, Avatar, Descriptions } from 'antd';
+import { Tabs, Card, Avatar, Descriptions, Skeleton } from 'antd';
 import { UserOutlined, MailOutlined, PhoneOutlined } from '@ant-design/icons';
 import logo from '../assets/Images/logo.png';
 
@@ -7,6 +7,7 @@ const { TabPane } = Tabs;
 
 const UserProfile = () => {
   const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   // Simulated fetch request (comment out this part when integrating with a real API)
   useEffect(() => {
@@ -37,6 +38,7 @@ const UserProfile = () => {
     // Simulate fetching data from an API (comment this out when integrating with a real API)
     setTimeout(() => {
       setUserData(fakeUserData);
+      setLoading(false);
     }, 1000); // Simulate a 1-second delay
   }, []);
 
@@ -44,47 +46,53 @@ const UserProfile = () => {
     <div>
       <Card>
         <div className="text-center">
-        <img width={230} src={logo} className='ps-3 py-2' alt='logo' />
+          <img width={230} src={logo} className='ps-3 py-2' alt='logo' />
         </div>
         <Tabs defaultActiveKey="1">
           <TabPane tab="Profile Information" key="1">
-            {userData && (
-              <>
-                <Avatar size={100} src={userData.profileInformation.profilePicture} />
-                <h2>{userData.profileInformation.name}</h2>
-                <Descriptions title="User Info">
-                  <Descriptions.Item label="Email" icon={<MailOutlined />}>{userData.profileInformation.email}</Descriptions.Item>
-                  <Descriptions.Item label="staffNumber" icon={<MailOutlined style={{ fontSize: 24, color:'#2f463d'}} />}>{userData.profileInformation.staffNumber}</Descriptions.Item>
-                  <Descriptions.Item label="role" icon={<MailOutlined style={{ fontSize: 24, color:'#2f463d'}} />}>{userData.profileInformation.role}</Descriptions.Item>
-                  <Descriptions.Item label="Department" icon={<MailOutlined style={{ fontSize: 24, color:'#2f463d'}} />}>{userData.profileInformation.department}</Descriptions.Item>
+            <Skeleton loading={loading} active>
+              {userData && (
+                <>
+                  <Avatar size={100} src={userData.profileInformation.profilePicture} />
+                  <h2>{userData.profileInformation.name}</h2>
+                  <Descriptions title="User Info">
+                    <Descriptions.Item label="Email" icon={<MailOutlined />}>{userData.profileInformation.email}</Descriptions.Item>
+                    <Descriptions.Item label="staffNumber" icon={<MailOutlined style={{ fontSize: 24, color:'#2f463d'}} />}>{userData.profileInformation.staffNumber}</Descriptions.Item>
+                    <Descriptions.Item label="role" icon={<MailOutlined style={{ fontSize: 24, color:'#2f463d'}} />}>{userData.profileInformation.role}</Descriptions.Item>
+                    <Descriptions.Item label="Department" icon={<MailOutlined style={{ fontSize: 24, color:'#2f463d'}} />}>{userData.profileInformation.department}</Descriptions.Item>
 
-                  {/* Add other profile information here */}
-                </Descriptions>
-              </>
-            )}
+                    {/* Add other profile information here */}
+                  </Descriptions>
+                </>
+              )}
+            </Skeleton>
           </TabPane>
           <TabPane tab="Personal Details" key="2">
-            {userData && (
-              <>
-                <Avatar size={100} src={userData.profileInformation.profilePicture} />
-                <h2>{userData.profileInformation.name}</h2>
-                <Descriptions title="Personal Details">
-                  <Descriptions.Item label="ID Number">{userData.personalDetails.idNumber}</Descriptions.Item>
-                  {/* Add other personal details here */}
-                </Descriptions>
-              </>
-            )}
+            <Skeleton loading={loading} active>
+              {userData && (
+                <>
+                  <Avatar size={100} src={userData.profileInformation.profilePicture} />
+                  <h2>{userData.profileInformation.name}</h2>
+                  <Descriptions title="Personal Details">
+                    <Descriptions.Item label="ID Number">{userData.personalDetails.idNumber}</Descriptions.Item>
+                    {/* Add other personal details here */}
+                  </Descriptions>
+                </>
+              )}
+            </Skeleton>
           </TabPane>
           <TabPane tab="Work Information" key="3">
-            {userData && (
-              <>
-                <Avatar size={100} src={userData.profileInformation.profilePicture} />
-                <h2>{userData.profileInformation.name}</h2>
-                <Descriptions title="Work Information">
-                  {/* Add work-related information here */}
-                </Descriptions>
-              </>
-            )}
+            <Skeleton loading={loading} active>
+              {userData && (
+                <>
+                  <Avatar size={100} src={userData.profileInformation.profilePicture} />
+                  <h2>{userData.profileInformation.name}</h2>
+                  <Descriptions title="Work Information">
+                    {/* Add work-related information here */}
+                  </Descriptions>
+                </>
+              )}
+            </Skeleton>
           </TabPane>
         </Tabs>
       </Card>

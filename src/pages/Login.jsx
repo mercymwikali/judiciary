@@ -11,7 +11,7 @@ const Login = () => {
     const notify = () => toast.success("Login Successful!");
 
     return (
-        <div className='container-fluid h-100 py-5' style={{ backgroundColor: '#D6B300' }}>
+        <div className='container-fluid py-5' style={{ backgroundColor: '#D6B300' }}>
             <div className="row d-flex justify-content-center align-items-center">
                 <div className="col-xl-10">
                     <div className="card rounded-3 text-black">

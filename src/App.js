@@ -7,11 +7,11 @@ function App() {
     <ConfigProvider
     theme={{
       token: {
-        colorPrimary: '#D6B300',
+        colorPrimary: '#c6a815',
       },
       components: {
         Menu: {
-          itemSelectedBg: '#D6B300',
+          itemSelectedBg: '#c6a815',
           itemHoverBg: 'rgba(214, 179, 0, 0.4)',
           itemSelectedColor: '#2f463d',
           itemHoverColor: '#2f463d',

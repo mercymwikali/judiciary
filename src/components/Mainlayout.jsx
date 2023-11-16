@@ -31,7 +31,7 @@ import Sigonout from './Signout';
 
 
 const Mainlayout = () => {
-    const [collapsed, setCollapsed] = useState(false);
+    const [collapsed, setCollapsed] = useState(true);
     const [openMenu, setOpenMenu] = useState(false);
     const navigate = useNavigate();
     const [openKeys, setOpenKeys] = useState(['/']);
@@ -107,7 +107,7 @@ const Mainlayout = () => {
                         style={{
                             marginLeft: collapsed ? 80 : 230,
                             transition: 'all 0.2s',
-                            padding: 24,
+                            padding: 12,
                         }}>
                         <Outlet />
                     </Content>

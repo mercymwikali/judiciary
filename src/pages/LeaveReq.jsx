@@ -1,62 +1,142 @@
-import { Button, Card, DatePicker, Modal, Upload, message, Input } from 'antd';
 import React, { useState, useEffect } from 'react';
+import { Button, Card, DatePicker, Modal, Upload, message, Input, Skeleton } from 'antd';
 import { Link } from 'react-router-dom';
-import { PlusOutlined, InboxOutlined } from '@ant-design/icons'
+import { PlusOutlined, InboxOutlined } from '@ant-design/icons';
 import logo from '../assets/Images/logo.png';
-import { toast } from "react-toastify";
+import { toast } from 'react-toastify';
 
 function LeaveReq(params) {
     const [approvedLeaveData, setApprovedLeaveData] = useState([]);
     const [selectedLeaveType, setSelectedLeaveType] = useState('');
     const [selectedAppliedDays, setSelectedAppliedDays] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [loadingData, setLoadingData] = useState(true);
+
+    // Simulated fetch request (comment out this part when integrating with a real API)
+    useEffect(() => {
+        // Simulated leave data
+        const fakeLeaveData = [
+            { leaveType: 'Annual Leave', appliedDays: 5, date: '2023-11-01', startDate: '2023-11-01', endDate: '2023-11-05', returnDate: '2023-11-06', reliever: 'John Doe', status: 'Approved' },
+            { leaveType: 'Study Leave', appliedDays: 3, date: '2023-11-10', startDate: '2023-11-10', endDate: '2023-11-12', returnDate: '2023-11-13', reliever: 'Jane Doe', status: 'Pending' },
+            { leaveType: 'Sick Leave', appliedDays: 2, date: '2023-11-15', startDate: '2023-11-15', endDate: '2023-11-16', returnDate: '2023-11-17', reliever: 'Sam Smith', status: 'Approved' },
+            { leaveType: 'Maternity Leave', appliedDays: 90, date: '2023-11-20', startDate: '2023-11-20', endDate: '2024-02-17', returnDate: '2024-02-18', reliever: 'Emily Johnson', status: 'Pending' },
+            { leaveType: 'Paternity Leave', appliedDays: 7, date: '2023-12-05', startDate: '2023-12-05', endDate: '2023-12-11', returnDate: '2023-12-12', reliever: 'Michael Brown', status: 'Approved' },
+            { leaveType: 'Vacation Leave', appliedDays: 10, date: '2023-12-15', startDate: '2023-12-15', endDate: '2023-12-24', returnDate: '2023-12-25', reliever: 'Laura White', status: 'Pending' },
+            { leaveType: 'Unpaid Leave', appliedDays: 15, date: '2024-01-02', startDate: '2024-01-02', endDate: '2024-01-16', returnDate: '2024-01-17', reliever: 'Chris Taylor', status: 'Approved' },
+            { leaveType: 'Business Trip', appliedDays: 8, date: '2024-02-05', startDate: '2024-02-05', endDate: '2024-02-12', returnDate: '2024-02-13', reliever: 'Daniel Black', status: 'Approved' },
+            { leaveType: 'Family Emergency', appliedDays: 3, date: '2024-02-18', startDate: '2024-02-18', endDate: '2024-02-20', returnDate: '2024-02-21', reliever: 'Sophia Red', status: 'Pending' },
+            { leaveType: 'Training Leave', appliedDays: 2, date: '2024-03-01', startDate: '2024-03-01', endDate: '2024-03-02', returnDate: '2024-03-03', reliever: 'Matthew Blue', status: 'Approved' },
+            { leaveType: 'Compensatory Leave', appliedDays: 1, date: '2024-03-10', startDate: '2024-03-10', endDate: '2024-03-10', returnDate: '2024-03-11', reliever: 'Ella Pink', status: 'Pending' },
+            // Add more leave data here
+        ];
+        
+
+        // Simulate fetching data from an API (comment this out when integrating with a real API)
+        setTimeout(() => {
+            setApprovedLeaveData(fakeLeaveData);
+            setLoadingData(false);
+        }, 3000); // Simulate a 1-second delay
+    }, []);
 
     const showModal = () => {
         setIsModalOpen(true);
     };
 
-    const leaveTypes = ["Adoption", "Annual Leave", "Partenity", "Personal Days", "Sick Off", "Sick Leave", "Study Leave", "Time Off In Lieu"];
+    const leaveTypes = [
+        'Adoption',
+        'Annual Leave',
+        'Partenity',
+        'Personal Days',
+        'Sick Off',
+        'Sick Leave',
+        'Study Leave',
+        'Time Off In Lieu',
+    ];
 
     return (
         <Card>
             <div className="card-body">
                 <div className="text-center">
-                    <img width={200} src={logo} className='ps-3 py-2' alt='logo' />
-                    < h4 className='pt-1 text-primary'>Leave Request List</h4>
+                    <img width={200} src={logo} className="ps-3 py-2" alt="logo" />
+                    <h4 className="pt-1 text-primary">Leave Request List</h4>
                 </div>
                 <hr></hr>
-                <div className="d-grid my-3 col-md-8 col-lg-6 d-md-block">
-                    <button type="button" className="btn  btn-primary " onClick={showModal} data-bs-toggle="button" autocomplete="off" aria-pressed="true"><PlusOutlined style={{ color: '#fff', paddingRight: "2px" }} />New Leave Request</button>
+                <div className="d-grid my-3  d-md-block">
+                    <button
+                        type="button"
+                        className="btn  btn-primary "
+                        onClick={showModal}
+                        data-bs-toggle="button"
+                        autoComplete="off"
+                        aria-pressed="true"
+                    >
+                        <PlusOutlined style={{ color: '#fff', paddingRight: '2px' }} />
+                        New Leave Request
+                    </button>
                 </div>
                 <div className="table-responsive">
                     <table className="table table-hover table-bordered dt-responsive nowrap">
                         <thead>
                             <tr>
-                                <th className='small text-primary text-center bg-secondary' scope="col">Action</th>
-                                <th className='small text-primary text-center bg-secondary' scope="col">No</th>
-                                <th className='small text-primary text-center bg-secondary' scope="col">Leave Type</th>
-                                <th className='small text-primary text-center bg-secondary' scope="col">Applied Days</th>
-                                <th className='small text-primary text-center bg-secondary' scope="col">Date</th>
-                                <th className='small text-primary text-center bg-secondary' scope="col">Start Date</th>
-                                <th className='small text-primary text-center bg-secondary' scope="col">End Date</th>
-                                <th className='small text-primary text-center bg-secondary' scope="col">Return Date</th>
-                                <th className='small text-primary text-center bg-secondary' scope="col">Reliever</th>
-                                <th className='small text-primary text-center bg-secondary' scope="col"> Status</th>
+                                <th className="small text-primary text-center bg-secondary" scope="col">
+                                    Action
+                                </th>
+                                <th className="small text-primary text-center bg-secondary" scope="col">
+                                    No
+                                </th>
+                                <th className="small text-primary text-center bg-secondary" scope="col">
+                                    Leave Type
+                                </th>
+                                <th className="small text-primary text-center bg-secondary" scope="col">
+                                    Applied Days
+                                </th>
+                                <th className="small text-primary text-center bg-secondary" scope="col">
+                                    Date
+                                </th>
+                                <th className="small text-primary text-center bg-secondary" scope="col">
+                                    Start Date
+                                </th>
+                                <th className="small text-primary text-center bg-secondary" scope="col">
+                                    End Date
+                                </th>
+                                <th className="small text-primary text-center bg-secondary" scope="col">
+                                    Return Date
+                                </th>
+                                <th className="small text-primary text-center bg-secondary" scope="col">
+                                    Reliever
+                                </th>
+                                <th className="small text-primary text-center bg-secondary" scope="col">
+                                    Status
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
-                            {approvedLeaveData.length > 0 ? (
+                            {loadingData ? (
+                                <tr>
+                                    <td colSpan="10">
+                                        <Skeleton active />
+                                    </td>
+                                </tr>
+                            ) : approvedLeaveData.length > 0 ? (
                                 approvedLeaveData.map((leave, index) => (
                                     <tr key={index}>
                                         <td> {/* Action button or action related to the row */}</td>
                                         <td>{index + 1}</td>
                                         <td>{leave.leaveType}</td>
-                                        {/* Other leave data fields */}
+                                        <td>{leave.appliedDays}</td>
+                                        <td>{leave.date}</td>
+                                        <td>{leave.startDate}</td>
+                                        <td>{leave.endDate}</td>
+                                        <td>{leave.returnDate}</td>
+                                        <td>{leave.reliever}</td>
+                                        <td>{leave.status}</td>
                                     </tr>
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan="9" className='text-danger'>No Records Found</td>
+                                    <td colSpan="10" className="text-danger">
+                                        No Records Found
+                                    </td>
                                 </tr>
                             )}
                         </tbody>
@@ -64,11 +144,9 @@ function LeaveReq(params) {
                 </div>
             </div>
             <LeaveRequestModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
-
         </Card>
     );
-};
-
+}
 function LeaveRequestModal({ setIsModalOpen, isModalOpen }) {
     const [Year, setYear] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -160,19 +238,24 @@ function LeaveRequestModal({ setIsModalOpen, isModalOpen }) {
 
 
     return (
-        <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel} style={{
-            top: 20,
-        }}
-            width='75%'
+        <Modal
+            open={isModalOpen}
+            onOk={handleOk}
+            onCancel={handleCancel}
+            style={{
+                top: 20,
+            }}
+            width="75%"
             class="modal-dialog modal-fullscreen-sm-down modal-dialog-scrollable"
             footer={[
-                <Button key="back" onClick={handleCancel} size='large'>
+                <Button key="back" onClick={handleCancel} size="large">
                     Exit
                 </Button>,
-                <Button key="text" type="primary" className='btn-primary' loading={loading} onClick={handleOk} size='large'>
+                <Button key="text" type="primary" className="btn-primary" loading={loading} onClick={handleOk} size="large">
                     Save Changes
                 </Button>,
-            ]}>
+            ]}
+        >
             <div className="text-center">
                 <img width={300} src={logo} className='ps-4 ' alt='logo' />
                 <h4 className="modal-title text-primary " ><u>New Leave Application Document</u></h4>
