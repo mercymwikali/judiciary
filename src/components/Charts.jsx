@@ -1,114 +1,37 @@
-import * as React from 'react';
-import { BarChart } from '@mui/x-charts/BarChart';
+import React from 'react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, AreaChart, Area } from 'recharts';
 
-const Charts = {
-  xAxis: [
-    {
-      label: 'rainfall (mm)',
-      scaleType: 'band', // Add this line to specify the scale type
+const Charts = () => {
+  // Create fake data
+  const imprestData = [
+    { month: 'Jan', approvedAmount: 300, disbursedAmount: 250 },
+    { month: 'Feb', approvedAmount: 500, disbursedAmount: 400 },
+    { month: 'Mar', approvedAmount: 1000, disbursedAmount: 800 },
+    { month: 'Apr', approvedAmount: 700, disbursedAmount: 600 },
+    { month: 'May', approvedAmount: 1200, disbursedAmount: 1000 },
+    { month: 'Jun', approvedAmount: 800, disbursedAmount: 700 },
+    { month: 'Jul', approvedAmount: 1500, disbursedAmount: 1300 },
+    { month: 'Aug', approvedAmount: 900, disbursedAmount: 800 },
+    { month: 'Sep', approvedAmount: 600, disbursedAmount: 500 },
+    { month: 'Oct', approvedAmount: 1100, disbursedAmount: 900 },
+    { month: 'Nov', approvedAmount: 1000, disbursedAmount: 850 },
+    { month: 'Dec', approvedAmount: 1300, disbursedAmount: 1100 },
+  ];
+  
 
-    },
-  ],
-  width: 500,
-  height: 400,
-};
-const dataset = [
-  {
-    london: 59,
-    paris: 57,
-    newYork: 86,
-    seoul: 21,
-    month: 'Jan',
-  },
-  {
-    london: 50,
-    paris: 52,
-    newYork: 78,
-    seoul: 28,
-    month: 'Fev',
-  },
-  {
-    london: 47,
-    paris: 53,
-    newYork: 106,
-    seoul: 41,
-    month: 'Mar',
-  },
-  {
-    london: 54,
-    paris: 56,
-    newYork: 92,
-    seoul: 73,
-    month: 'Apr',
-  },
-  {
-    london: 57,
-    paris: 69,
-    newYork: 92,
-    seoul: 99,
-    month: 'May',
-  },
-  {
-    london: 60,
-    paris: 63,
-    newYork: 103,
-    seoul: 144,
-    month: 'June',
-  },
-  {
-    london: 59,
-    paris: 60,
-    newYork: 105,
-    seoul: 319,
-    month: 'July',
-  },
-  {
-    london: 65,
-    paris: 60,
-    newYork: 106,
-    seoul: 249,
-    month: 'Aug',
-  },
-  {
-    london: 51,
-    paris: 51,
-    newYork: 95,
-    seoul: 131,
-    month: 'Sept',
-  },
-  {
-    london: 60,
-    paris: 65,
-    newYork: 97,
-    seoul: 55,
-    month: 'Oct',
-  },
-  {
-    london: 67,
-    paris: 64,
-    newYork: 76,
-    seoul: 48,
-    month: 'Nov',
-  },
-  {
-    london: 61,
-    paris: 70,
-    newYork: 103,
-    seoul: 25,
-    month: 'Dec',
-  },
-];
-
-const valueFormatter = (value) => `${value}mm`;
-
-export default function HorizontalBars() {
   return (
-    <BarChart
-      dataset={dataset}
-      yAxis={[{ scaleType: 'band', dataKey: 'month' }]}
-      series={[{ dataKey: 'seoul', label: 'Seoul rainfall', valueFormatter }]}
-      layout="vertical"
-      {...Charts}
-    />
+    <ResponsiveContainer width="100%" height={400}>
+      <AreaChart data={imprestData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="month" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        <Area type="monotone" dataKey="approvedAmount" stackId="1" stroke="#D6B300" fill="#174734" />
+        <Area type="monotone" dataKey="disbursedAmount" stackId="1" stroke="#174734" fill="#D6B300" />
+      </AreaChart>
+    </ResponsiveContainer>
   );
-}
+};
+
+export default Charts;

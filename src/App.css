@@ -162,6 +162,21 @@ thead {
   border-radius: 0 0 8px 8px;
 }
 
+.ant-picker-dropdown .ant-picker-content th {
+  height: 36px;
+  color: rgba(255, 255, 255, 0.88) ;
+  vertical-align: middle;
+}
+.ant-table-wrapper .ant-table-thead >tr>th, :where(.css-dev-only-do-not-override-19nuo9a).ant-table-wrapper .ant-table-thead >tr>td {
+  position: relative;
+  color: #386656;
+  font-weight: 600;
+  text-align: start;
+  background: #D6B300;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background 0.2s ease;
+}
+
 @media screen and (max-width: 768px) {
   .headerMenu {
     display: none;

@@ -134,6 +134,7 @@ function MenuComponent() {
             setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
         }
     };
+    
     return (
         <div>
 
@@ -145,6 +146,7 @@ function MenuComponent() {
                 onOpenChange={onOpenChange}
                 onClick={({ key }) => {
                     navigate(key);
+                    setCollapsed(true);
                 }}
                 style={{
                     paddingBottom: '70px',

@@ -1,73 +1,139 @@
-import { Button, Card, DatePicker, Modal, Upload, message, Input } from 'antd';
 import React, { useState, useEffect } from 'react';
+import { Button, Card, DatePicker, Modal, Upload, message, Input, Skeleton, Checkbox } from 'antd';
 import { Link } from 'react-router-dom';
-import { PlusOutlined, InboxOutlined } from '@ant-design/icons'
+import { PlusOutlined, InboxOutlined, DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons'
 import logo from '../assets/Images/logo.png';
 import { toast } from "react-toastify";
 
-function ApplicationHist(params) {
+
+const { confirm } = Modal;
+function ApplicationHist() {
     const [approvedLeaveData, setApprovedLeaveData] = useState([]);
     const [selectedLeaveType, setSelectedLeaveType] = useState('');
     const [selectedAppliedDays, setSelectedAppliedDays] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [loadingData, setLoadingData] = useState(true); // New state to track loading status
+    const [approvedPayChangeData, setApprovedPayChangeData] = useState([]);
+
 
     const showModal = () => {
         setIsModalOpen(true);
     };
 
-    const leaveTypes = ["Adoption", "Annual Leave", "Partenity", "Personal Days", "Sick Off", "Sick Leave", "Study Leave", "Time Off In Lieu"];
+    useEffect(() => {
+        // Simulate API call or data fetching for approved leave data
+        setTimeout(() => {
+            setApprovedLeaveData([
+                { leaveType: 'Annual Leave', appliedDays: 5, date: '2023-11-01', startDate: '2023-11-01', endDate: '2023-11-05', returnDate: '2023-11-06', reliever: 'John Doe', status: 'Approved' },
+                { leaveType: 'Study Leave', appliedDays: 3, date: '2023-11-10', startDate: '2023-11-10', endDate: '2023-11-12', returnDate: '2023-11-13', reliever: 'Jane Doe', status: 'Pending' },
+                // Add more fake leave data here
+                { leaveType: 'Sick Leave', appliedDays: 2, date: '2023-12-05', startDate: '2023-12-05', endDate: '2023-12-06', returnDate: '2023-12-07', reliever: 'Bob Smith', status: 'Approved' },
+                { leaveType: 'Time Off In Lieu', appliedDays: 1, date: '2023-12-15', startDate: '2023-12-15', endDate: '2023-12-15', returnDate: '2023-12-16', reliever: 'Alice Johnson', status: 'Approved' },
+                { leaveType: 'Adoption', appliedDays: 7, date: '2024-01-02', startDate: '2024-01-02', endDate: '2024-01-08', returnDate: '2024-01-09', reliever: 'Eva Brown', status: 'Approved' },
+                { leaveType: 'Paternity', appliedDays: 4, date: '2024-02-15', startDate: '2024-02-15', endDate: '2024-02-18', returnDate: '2024-02-19', reliever: 'Michael White', status: 'Pending' },
+                { leaveType: 'Personal Days', appliedDays: 2, date: '2024-03-10', startDate: '2024-03-10', endDate: '2024-03-11', returnDate: '2024-03-12', reliever: 'Sara Green', status: 'Approved' },
+            ]);
+            setLoadingData(false); // Set loading status to false once data is fetched
+        }, 3000); // Simulating a 2-second delay for data fetching
+    }, []);
+
+    const showDeleteConfirmation = (index) => {
+        Modal.confirm({
+            title: 'Are you sure you want to delete this item?',
+            icon: <ExclamationCircleOutlined />,
+            okText: 'Yes',
+            okType: 'danger',
+            cancelText: 'No',
+            onOk() {
+                const updatedData = [...approvedPayChangeData];
+                updatedData.splice(index, 1);
+                setApprovedPayChangeData(updatedData);
+            },
+            onCancel() {
+                console.log('Cancel');
+            },
+        });
+    };
 
     return (
         <Card>
             <div className="card-body">
                 <div className="text-center">
                     <img width={200} src={logo} className='ps-3 py-2' alt='logo' />
-                    < h4 className='pt-1 text-primary'>Leave Application History</h4>
+                    <h4 className='pt-1 text-primary'>Leave Application History</h4>
                 </div>
                 <hr></hr>
                 <div className="d-grid my-3 col-md-8 col-lg-6 d-md-block">
-                    <button type="button" className="btn  btn-primary " onClick={showModal} data-bs-toggle="button" autocomplete="off" aria-pressed="true"><PlusOutlined style={{ color: '#fff', paddingRight: "2px" }} />New Leave Request</button>
+                    <button
+                        type="button"
+                        className="btn btn-primary"
+                        onClick={showModal}
+                        data-bs-toggle="button"
+                        autoComplete="off"
+                        aria-pressed="true"
+                    >
+                        <PlusOutlined style={{ color: '#fff', paddingRight: '2px' }} />New Leave Request
+                    </button>
                 </div>
-                <div className="table-responsive">
-                    <table className="table table-hover table-bordered dt-responsive nowrap">
-                        <thead>
-                            <tr>
-                                <th className='small text-primary text-center bg-secondary' scope="col">Action</th>
-                                <th className='small text-primary text-center bg-secondary' scope="col">No</th>
-                                <th className='small text-primary text-center bg-secondary' scope="col">Leave Type</th>
-                                <th className='small text-primary text-center bg-secondary' scope="col">Applied Days</th>
-                                <th className='small text-primary text-center bg-secondary' scope="col">Date</th>
-                                <th className='small text-primary text-center bg-secondary' scope="col">Start Date</th>
-                                <th className='small text-primary text-center bg-secondary' scope="col">End Date</th>
-                                <th className='small text-primary text-center bg-secondary' scope="col">Return Date</th>
-                                <th className='small text-primary text-center bg-secondary' scope="col">Reliever</th>
-                                <th className='small text-primary text-center bg-secondary' scope="col"> Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {approvedLeaveData.length > 0 ? (
-                                approvedLeaveData.map((leave, index) => (
-                                    <tr key={index}>
-                                        <td> {/* Action button or action related to the row */}</td>
-                                        <td>{index + 1}</td>
-                                        <td>{leave.leaveType}</td>
-                                        {/* Other leave data fields */}
-                                    </tr>
-                                ))
-                            ) : (
+                <div className="table-responsive-lg">
+                    {loadingData ? (
+                        <Skeleton active paragraph={{ rows: 5 }} />
+                    ) : (
+                        <table className="table table-hover table-bordered dt-responsive nowrap">
+                            <thead>
                                 <tr>
-                                    <td colSpan="9" className='text-danger'>No Records Found</td>
+                                    <th className='small text-primary text-center bg-secondary' scope="col">Action</th>
+                                    <th className='small text-primary text-center bg-secondary' scope="col">No</th>
+                                    <th className='small text-primary text-center bg-secondary' scope="col">Leave Type</th>
+                                    <th className='small text-primary text-center bg-secondary' scope="col">Applied Days</th>
+                                    <th className='small text-primary text-center bg-secondary' scope="col">Date</th>
+                                    <th className='small text-primary text-center bg-secondary' scope="col">Start Date</th>
+                                    <th className='small text-primary text-center bg-secondary' scope="col">End Date</th>
+                                    <th className='small text-primary text-center bg-secondary' scope="col">Return Date</th>
+                                    <th className='small text-primary text-center bg-secondary' scope="col">Reliever</th>
+                                    <th className='small text-primary text-center bg-secondary' scope="col"> Status</th>
+                                    <th className='small text-primary text-center bg-secondary' scope="col">Delete</th>
+
                                 </tr>
-                            )}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {approvedLeaveData.length > 0 ? (
+                                    approvedLeaveData.map((leave, index) => (
+                                        <tr key={index}>
+                                            <td><Checkbox /></td>
+                                            <td>{index + 1}</td>
+                                            <td>{leave.leaveType}</td>
+                                            <td>{leave.appliedDays}</td>
+                                            <td>{leave.date}</td>
+                                            <td>{leave.startDate}</td>
+                                            <td>{leave.endDate}</td>
+                                            <td>{leave.returnDate}</td>
+                                            <td>{leave.reliever}</td>
+                                            <td>{leave.status}</td>
+                                            <td>
+                                                <Button
+                                                    type="danger"
+                                                    style={{ backgroundColor: '#d0323a' }}
+                                                    icon={<DeleteOutlined style={{ color: '#fff' }} />}
+                                                    onClick={() => showDeleteConfirmation(index)}  
+                                                />
+                                            </td>
+                                        </tr>
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td colSpan="10" className='text-danger'>No Records Found</td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
+                    )}
                 </div>
             </div>
             <ApplicationHistuestModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
-
         </Card>
     );
-};
+}
 
 function ApplicationHistuestModal({ setIsModalOpen, isModalOpen }) {
     const [Year, setYear] = useState([]);

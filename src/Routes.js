@@ -37,6 +37,8 @@ import UserSupport from "./pages/UserSupport";
 import ICTAssetReq from "./pages/ICTAssetReq";
 import AssignedICTReq from "./pages/AssignedICTReq";
 import ICTMaintenance from "./pages/ICTMaintenance";
+import ImprestBalance from "./pages/ImprestBalance";
+import MyApprovalsList from "./pages/ApprovedLists";
 
 function AppRoutes() {
     return (
@@ -50,7 +52,10 @@ function AppRoutes() {
                     <Route path="/payslip" element={<Payslip />} />
                     <Route path="/p9" element={<P9/>} />
                     <Route path="/pay-change" element={<PayChange />} />
+                    <Route path="/Imprest-Balance" element={<ImprestBalance />} />
                     <Route path="/Appraisal-requsition" element={<AppraisalReq />} />
+                    <Route path="/My-Approvals" element={<MyApprovalsList />} />
+
                     <Route path="/Supervisor-Review" element={<SupervisorRev />} />
                     <Route path="/Assigned-Assets" element={<AssignedAssets />} />
                     <Route path="/Asset-Transfer" element={<AssetTransfer />} />

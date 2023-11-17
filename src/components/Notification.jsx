@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 
 const Notification = () => {
-    // Fake notifications data for demonstration
+    // Fake notifications data for 
+    const [collapsed, setCollapsed] = useState(true);
+    
     const initialNotifications = [
         { id: 1, message: 'New message received' },
         { id: 2, message: 'You have 3 new emails' },
@@ -25,13 +27,13 @@ const Notification = () => {
     };
 
     return (
-            <div className="card p-2 " style={{ width: "20rem", height: "auto" }}>
+            <div className="card p-2 " style={{ width: collapsed ? '100%' :"20rem", }}>
                 <div className="card-title text-primary fw-bold ">Notifications</div>
                 <ul className="list-group">
                     {notifications.map((notification) => (
                         <li
                             key={notification.id}
-                            className="pb-3 list-group-item d-flex justify-content-between align-items-center"
+                            className="pb-2 list-group-item d-flex justify-content-between align-items-center"
                         >
                             {notification.message}
                             <button
