@@ -3,9 +3,11 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { PlusOutlined, InboxOutlined } from '@ant-design/icons'
 import logo from '../assets/Images/logo.png';
+import hosp_Svg from '../assets/Images/hosp_Svg.svg';
+
 import { toast } from "react-toastify";
 
-function ICTMaintenance() {
+function InsuranceForm() {
     const [approvedLeaveData, setApprovedLeaveData] = useState([]);
     const [selectedLeaveType, setSelectedLeaveType] = useState('');
     const [selectedAppliedDays, setSelectedAppliedDays] = useState('');
@@ -20,23 +22,22 @@ function ICTMaintenance() {
             <div className="card-body">
                 <div className="text-center">
                     <img width={200} src={logo} className='ps-3 py-2' alt='logo' />
-                    < h4 className='pt-1 text-primary'>ICT Service/Maintenance List</h4>
+                    < h4 className='pt-1 text-primary'>Insurance Claims List</h4>
                 </div>
                 <hr></hr>
                 <div className="d-grid my-3 col-md-8 col-lg-6 d-md-block">
-                    <button type="button" className="btn  btn-primary " onClick={showModal} data-bs-toggle="button" autocomplete="off" aria-pressed="true"><PlusOutlined style={{ color: '#fff', paddingRight: "2px" }} />New Request Document</button>
+                    <button type="button" className="btn  btn-primary " onClick={showModal} data-bs-toggle="button" autocomplete="off" aria-pressed="true"><PlusOutlined style={{ color: '#fff', paddingRight: "2px" }} />New Claim Request</button>
                 </div>
                 <div className="table-responsive">
                     <table className="table table-hover table-bordered dt-responsive nowrap">
                         <thead>
                             <tr>
-                                <th className='small text-primary text-center bg-secondary' scope="col">Action</th>
-                                <th className='small text-primary text-center bg-secondary' scope="col">No</th>
-                                <th className='small text-primary text-center bg-secondary' scope="col">Asset</th>
-                                <th className='small text-primary text-center bg-secondary' scope="col">Asset Name</th>
-                                <th className='small text-primary text-center bg-secondary' scope="col">Service Date</th>
-                                <th className='small text-primary text-center bg-secondary' scope="col">Last Service Date</th>
-                                <th className='small text-primary text-center bg-secondary' scope="col">Next Service Date</th>
+                                <th className='small text-primary text-center bg-secondary' scope="col">Doc No</th>
+                                <th className='small text-primary text-center bg-secondary' scope="col">Employee No</th>
+                                <th className='small text-primary text-center bg-secondary' scope="col">Employee Name</th>
+                                <th className='small text-primary text-center bg-secondary' scope="col">Date Reported</th>
+                                <th className='small text-primary text-center bg-secondary' scope="col">Beneficiary Name</th>
+                                <th className='small text-primary text-center bg-secondary' scope="col">Claim Type</th>
                                 <th className='small text-primary text-center bg-secondary' scope="col"> Status</th>
                             </tr>
                         </thead>
@@ -136,6 +137,25 @@ function ServiceModal({ setIsModalOpen, isModalOpen }) {
     };
 
 
+    const { Dragger } = Upload;
+
+    const props = {
+        name: 'file',
+        multiple: true,
+        action: '',
+        onChange(info) {
+            const { status } = info.file;
+            if (status === 'done') {
+                message.success(`${info.file.name} file uploaded successfully.`);
+            } else if (status === 'error') {
+                message.error(`${info.file.name} file upload failed.`);
+            }
+        },
+        onDrop(e) {
+            console.log('Dropped files', e.dataTransfer.files);
+        },
+    };
+
     return (
         <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel} style={{
             top: 20,
@@ -151,13 +171,79 @@ function ServiceModal({ setIsModalOpen, isModalOpen }) {
                 </Button>,
             ]}>
             <div className="text-center">
-                <img width={300} src={logo} className='ps-4 ' alt='logo' />
-                <h4 className="modal-title text-primary pt-2" ><u>New ICT Service/Maintenance Request</u></h4>
+                <div className="d-flex justify-content-center align-items-center ">
+                    <img width={270} src={logo} className='img-fluid ' alt='logo' />
+                    <img src={hosp_Svg} width={80} className='img-fluid ' alt='logo' />
+
+
+                </div>
+                <h4 className="modal-title text-primary pt-2" ><u>New Insurance Claim Request</u></h4>
+
             </div>
             <hr></hr>
             <div className="row g-4">
-                <div className="col-12 col-md-3">
-                    <p className='fw-normal text-primary  ls-wider text-decoration-underline'>Station  :</p>
+                <div className="col-12 col-md-6">
+                    <p className='fw-normal text-primary  ls-wider text-decoration-underline'>Doc No  :</p>
+                    <Input
+                        className="form-input"
+                        aria-label="Default select example"
+                        // value={description}
+                        // onChange={(e) => setDescription(e.target.value)}
+                        size='large'
+                    />
+                </div>
+                <div className="col-12 col-md-6">
+                    <p className='fw-normal text-primary ls-wider text-decoration-underline'>Staff No :</p>
+                    <Input
+                        className="form-input"
+                        aria-label="Default select example"
+                        // value={description}
+                        // onChange={(e) => setDescription(e.target.value)}
+                        size='large'
+                    />
+                </div>
+                <div className="col-12 col-md-6">
+                    <p className='fw-normal text-primary ls-wider text-decoration-underline'>Staff Name :</p>
+                    <Input
+                        className="form-input"
+                        aria-label="Default select example"
+                        // value={description}
+                        // onChange={(e) => setDescription(e.target.value)}
+                        size='large'
+                    />
+                </div>
+                <div className="col-12 col-md-6">
+                    <p className='fw-normal text-primary ls-wider text-decoration-underline'>Membership No :</p>
+                    <Input
+                        className="form-input"
+                        aria-label="Default select example"
+                        // value={description}
+                        // onChange={(e) => setDescription(e.target.value)}
+                        size='large'
+                    />
+                </div>
+                <div className="col-12 col-md-6">
+                    <p className='fw-normal text-primary ls-wider text-decoration-underline'>Beneficiary No :</p>
+                    <Input
+                        className="form-input"
+                        aria-label="Default select example"
+                        // value={description}
+                        // onChange={(e) => setDescription(e.target.value)}
+                        size='large'
+                    />
+                </div>
+                <div className="col-12 col-md-6">
+                    <p className='fw-normal text-primary ls-wider text-decoration-underline'>Date Reported :</p>
+                    <Input
+                        className="form-input"
+                        aria-label="Default select example"
+                        // value={description}
+                        // onChange={(e) => setDescription(e.target.value)}
+                        size='large'
+                    />
+                </div>
+                <div className="col-12 col-md-6">
+                    <p className='fw-normal text-primary ls-wider text-decoration-underline'>Claim Type :</p>
                     <select
                         className="form-select"
                         aria-label="Default select example"
@@ -165,72 +251,44 @@ function ServiceModal({ setIsModalOpen, isModalOpen }) {
                         onChange={(e) => setYear(e.target.value)}
                     >
                         <option value="" disabled>
-                            - - Select Donor - -
+                            Claim Type
                         </option>
-                        {years.map((year, index) => (
-                            <option key={index} value={year}>
-                                {year}
-                            </option>
-                        ))}
+                        
                     </select>
                 </div>
-                <div className="col-12 col-md-3">
-                    <p className='fw-normal text-primary ls-wider text-decoration-underline'>Project :</p>
-                    <select
-                        className="form-select"
+                <div className="col-12 col-md-6">
+                    <p className='fw-normal text-primary ls-wider text-decoration-underline'>Injury Description :</p>
+                    <Input
+                        className="form-input"
                         aria-label="Default select example"
-                        value={Year}
-                        onChange={(e) => setYear(e.target.value)}
-                    >
-                        <option value="" disabled>
-                            - - Select Supervisor - -
-                        </option>
-                        {months.map((month, index) => (
-                            <option key={index} value={month}>
-                                {month}
-                            </option>
-                        ))}
-                    </select>
+                        // value={description}
+                        // onChange={(e) => setDescription(e.target.value)}
+                        size='large'
+                    />
                 </div>
-                <div className="col-12 col-md-3">
-                    <p className='fw-normal text-primary ls-wider text-decoration-underline'>Asset :</p>
-                    <select
-                        className="form-select"
+                <div className="col-12 col-md-6">
+                    <p className='fw-normal text-primary ls-wider text-decoration-underline'>Insurance Name:</p>
+                    <Input
+                        className="form-input"
                         aria-label="Default select example"
-                        value={Year}
-                        onChange={(e) => setYear(e.target.value)}
-                    >
-                        <option value="" disabled>
-                            - - Select Project - -
-                        </option>
-                        {months.map((month, index) => (
-                            <option key={index} value={month}>
-                                {month}
-                            </option>
-                        ))}
-                    </select>
+                        // value={description}
+                        // onChange={(e) => setDescription(e.target.value)}
+                        size='large'
+                    />
                 </div>
-                <div className="col-12 col-md-3">
-                    <p className='fw-normal text-primary ls-wider text-decoration-underline'>Service Date :</p>
-                    <select
-                        className="form-select"
+                <div className="col-12 col-md-6">
+                    <p className='fw-normal text-primary ls-wider text-decoration-underline'>Documents Submitted :</p>
+                    <Input
+                        className="form-input"
                         aria-label="Default select example"
-                        value={Year}
-                        onChange={(e) => setYear(e.target.value)}
-                    >
-                        <option value="" disabled>
-                            - - Select Requisition Type - -
-                        </option>
-                        {months.map((month, index) => (
-                            <option key={index} value={month}>
-                                {month}
-                            </option>
-                        ))}
-                    </select>
+                        // value={description}
+                        // onChange={(e) => setDescription(e.target.value)}
+                        size='large'
+                    />
                 </div>
             </div>
-            <div className="row g-4 mt-3">
-                <div className="col-12 col-md-3">
+            {/* <div className="row g-4 mt-3">
+                <div className="col-12 col-md-6">
                     <p className='fw-normal text-primary ls-wider text-decoration-underline'>Category :</p>
                     <select
                         className="form-select"
@@ -249,20 +307,32 @@ function ServiceModal({ setIsModalOpen, isModalOpen }) {
                     </select>
                 </div>
 
-            </div>
+            </div> */}
             <hr></hr>
-            <div className="col-12 px-3 pb-4 " style={{ backgroundColor: '#d5d3d3', cursor: 'pointer' }}>
+            {/* <div className="col-12 px-3 pb-4 " style={{ backgroundColor: '#d5d3d3', cursor: 'pointer' }}>
 
-                <p className='h5 fw-bold text-primary ls-wider text-decoration-underline'>Maintenance Description</p>
+                <p className='h5 fw-bold text-primary ls-wider text-decoration-underline pt-3'>Maintenance Description</p>
                 <div className="input-group">
                     <TextArea className='col-12' rows={4} placeholder='Describe the issue ...'>
                         <br></br>
                     </TextArea>
                 </div>
-            </div>
+            </div> */}
+             <p className='h5 fw-bold text-primary ls-wider text-decoration-underline'>Attachments</p>
+                <div className="input-group">
+                    <Dragger {...props} className='col-12'>
+                        <p className="ant-upload-drag-icon">
+                            <InboxOutlined />
+                            <p className="ant-upload-text">Click or drag file to this area to upload</p>
+                            <p className="ant-upload-hint">
+                                Support for a single or bulk upload.
+                            </p>
+                        </p>
+                    </Dragger>
+                </div>
             <div className="col-12 px-3 pb-4 mt-3 " style={{ backgroundColor: '#d5d3d3', cursor: 'pointer' }}>
 
-                <p className='h5 fw-bold text-primary ls-wider text-decoration-underline'>Remarks</p>
+                <p className='h5 fw-bold text-primary ls-wider text-decoration-underline'>Description</p>
                 <div className="input-group">
                     <TextArea className='col-12' rows={4}>
                         <br></br>
@@ -284,4 +354,4 @@ function ServiceModal({ setIsModalOpen, isModalOpen }) {
     );
 };
 
-export default ICTMaintenance;
+export default InsuranceForm;

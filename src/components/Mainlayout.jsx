@@ -26,12 +26,12 @@ import smalllogo from '../assets/Images/smalllogo.png';
 import { HiOutlineClipboardList } from 'react-icons/hi';
 import { BiCalendar, BiMessageError } from 'react-icons/bi';
 import { TbTriangleSquareCircle, TbCreditCard } from 'react-icons/tb';
-import { FaUserFriends } from 'react-icons/fa';
+import { FaUserFriends,FaRegMoneyBillAlt,FaHandHoldingMedical } from 'react-icons/fa';
 import Sigonout from './Signout';
 
 
 const Mainlayout = () => {
-    const [collapsed, setCollapsed] = useState(true);
+    const [collapsed, setCollapsed] = useState(false);
     const [openMenu, setOpenMenu] = useState(false);
     const navigate = useNavigate();
     const [openKeys, setOpenKeys] = useState(['/']);
@@ -88,9 +88,20 @@ const Mainlayout = () => {
 
                 </Header>
                 <Layout hasSider >
-                    <Sider className='sideStyle'
-                        trigger={null} collapsible collapsed={collapsed}
+                    <Sider className={`sideStyle ${collapsed ? 'collapsed' : ''}`}
+                        trigger={null}
+                        collapsible
+                        collapsed={collapsed}
                         breakpoint="lg"
+                        theme="light"
+                        responsive
+                        onBreakpoint={(broken) => {
+                            if (broken) {
+                                setCollapsed(true);
+                            }
+                        }}
+                        // onMouseEnter={() => setCollapsed(false) } // Open on hover
+                        // onMouseLeave={() => setCollapsed(true)}  // Close on mouse leave
                     >
                         <MenuComponent />
                     </Sider>
@@ -103,12 +114,7 @@ const Mainlayout = () => {
                     >
                         <MenuComponent />
                     </Drawer>
-                    <Content className='contentStyle'
-                        style={{
-                            marginLeft: collapsed ? 80 : 230,
-                            transition: 'all 0.2s',
-                            padding: 12,
-                        }}>
+                    <Content className='contentStyle' style={{ marginLeft: collapsed ? 80 : 230, transition: 'all 0.2s', padding: 12 }}>
                         <Outlet />
                     </Content>
                 </Layout>
@@ -179,9 +185,28 @@ function MenuComponent() {
                             },
                             {
                                 key: "/pay-change",
-                                label: 'Pay Change Advance',
+                                label: 'Pay Change Advise',
                             },
                         ]
+                    },
+                    {
+                        key: '/Loan-Application',
+                        icon: <FaRegMoneyBillAlt style={{ fontSize: 20 }} />,
+                        label: 'Loan Application',
+                        // children: [
+                        //     {
+                        //         key: "/payslip",
+                        //         label: 'Payslip',
+                        //     },
+                        //     {
+                        //         key: "/p9",
+                        //         label: 'P9',
+                        //     },
+                        //     {
+                        //         key: "/pay-change",
+                        //         label: 'Pay Change Advise',
+                        //     },
+                        // ]
                     },
                     {
                         key: '/leave',
@@ -197,8 +222,8 @@ function MenuComponent() {
                                 label: 'Leave Reimbursement',
                             },
                             {
-                                key: "/time-off",
-                                label: 'Time off Lieu',
+                                key: "/MaternityLeave",
+                                label: 'Maternity Leave',
                             },
                             {
                                 key: "/carry-forward",
@@ -227,15 +252,18 @@ function MenuComponent() {
                         ]
                     },
                     {
-                        key: '/Onboarding',
+                        key: '/StaffManagement',
                         icon: <FaUserFriends style={{ fontSize: 20 }} />,
-                        label: 'Staff Onboarding',
+                        label: 'Staff Management',
                         children: [
                             {
                                 key: "/staffInduction",
                                 label: 'Staff Induction',
                             },
-
+                            {
+                                key: "/Staff-Transfer",
+                                label: 'Staff Transfer Request',
+                            },
                         ]
                     },
                     {
@@ -361,6 +389,21 @@ function MenuComponent() {
                                 key: "/CertificationPayment",
                                 label: 'Pay for Certification',
                             }
+                        ]
+                    },
+                    {
+                        key: '/Medical-service',
+                        icon: <FaHandHoldingMedical style={{ fontSize: 20 }} />,
+                        label: 'Medical Services',
+                        children: [
+                            {
+                                key: "/Medical-claim-Form",
+                                label: 'Medical Claim Form',
+                            },
+                            {
+                                key: "/Insurance-Claim-Form",
+                                label: 'Insurance Claim Form',
+                            },
                         ]
                     },
                     {

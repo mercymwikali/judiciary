@@ -1,6 +1,6 @@
 import React from 'react'
 import { Avatar, Card, Statistic } from 'antd';
-import { UserOutlined, ArrowUpOutlined, UsergroupAddOutlined, CreditCardOutlined } from '@ant-design/icons';
+import { SendOutlined, ArrowUpOutlined, InfoCircleOutlined, CreditCardOutlined } from '@ant-design/icons';
 import Notification from '../components/Notification';
 import Charts from '../components/Charts';
 import { Link } from 'react-router-dom';
@@ -10,6 +10,8 @@ import LeaveDaysChart from '../components/LeaveDaysChart';
 import AccruedLeaveChart from '../components/AccruedLeaveChart';
 import MyApprovalsList from './ApprovedLists';
 import MyCalendar from '../components/MyCalendar';
+import { RiBookOpenFill, RiTaskFill } from 'react-icons/ri';
+
 
 function Dashboard({ imprestData }) {
   return (
@@ -17,15 +19,15 @@ function Dashboard({ imprestData }) {
       <div className="row g-3">
         <div className="col-6 col-md-2">
           <Link to={'/My-Approvals'} className='text-decoration-none'>
-            <Card className=' text-center gy-3' style={{ backgroundColor: "#ffe5e7" }}>
-              <Avatar shape="square" size="large" icon={<UserOutlined style={{ color: '#fff' }} />} style={{ backgroundColor: '#d0323a' }} />
-              <p className='h4 text-primary py-1'>125</p>
-              <p className='text-primary py-1'>My Approvals</p>
+            <Card className=' text-center text-white gy-3' style={{ backgroundColor: "#174734", border:"2px solid #2f463d" }}>
+              <Avatar shape="square" size="large" icon={<RiBookOpenFill style={{ color: '#fff' }} />} style={{ backgroundColor: '#d0323a' }} />
+              <p className='h4  py-1'>125</p>
+              <p className=' py-1'>My Reports</p>
               <Statistic
                 value={11.28}
                 precision={2}
                 valueStyle={{
-                  color: '#3f8600',
+                  color: '#fff',
                   fontSize: '18px'
                 }}
                 prefix={<ArrowUpOutlined style={{ fontSize: '2x' }} />}
@@ -37,15 +39,15 @@ function Dashboard({ imprestData }) {
         </div>
         <div className="col-6 col-md-2">
           <Link to={'/applications-history'} className='text-decoration-none'>
-            <Card className=' text-center' style={{ backgroundColor: "#e8fff0" }}>
-              <Avatar shape="square" size="large" icon={<UsergroupAddOutlined style={{ color: '#fff' }} />} style={{ backgroundColor: '#22A550' }} />
-              <p className='h4 text-primary py-1'>25</p>
-              <p className='text-primary py-1'>My Leave Days</p>
+            <Card className=' text-center text-white ' style={{ backgroundColor: "#c6a815", border:"2px solid #2f463d",  }}>
+              <Avatar shape="square" size="large" icon={<SendOutlined style={{ color: '#fff' }} />} style={{ backgroundColor: '#22A550' }} />
+              <p className='h4  py-1'>25</p>
+              <p className=' py-1'>My Requests</p>
               <Statistic
                 value={11.28}
                 precision={2}
                 valueStyle={{
-                  color: '#3f8600',
+                  color: '#fff',
                   fontSize: '18px'
                 }}
                 prefix={<ArrowUpOutlined style={{ fontSize: '2x' }} />}
@@ -57,15 +59,15 @@ function Dashboard({ imprestData }) {
         </div>
         <div className="col-6 col-md-2">
           <Link to={'/Imprest-Balance'} className='text-decoration-none'>
-            <Card className=' text-center' style={{ backgroundColor: "#EEEEEE" }}>
-              <Avatar shape="square" size="large" icon={<CreditCardOutlined style={{ color: '#fff' }} />} style={{ backgroundColor: '#272425' }} />
-              <p className='h4 text-primary py-1'>$1000</p>
-              <p className='text-primary py-1'> Imperest Balance</p>
+            <Card className=' text-center text-white' style={{ backgroundColor: "#7b1113", border:"2px solid #2f463d" }}>
+              <Avatar shape="square" size="large" icon={<CreditCardOutlined style={{ color: '#fff' }} />} style={{ backgroundColor: '#2f463d' }} />
+              <p className='h4  py-1'>10</p>
+              <p className='py-1'> My Leave Info</p>
               <Statistic
                 value={11.28}
                 precision={2}
                 valueStyle={{
-                  color: '#3f8600',
+                  color: '#fff',
                   fontSize: '18px'
                 }}
                 prefix={<ArrowUpOutlined style={{ fontSize: '2x' }} />}
@@ -77,15 +79,15 @@ function Dashboard({ imprestData }) {
         </div>
         <div className="col-6 col-md-2">
           <Link to={'/pay-change'} className='text-decoration-none'>
-            <Card className=' text-center' style={{ backgroundColor: "#ffe5e7" }}>
-              <Avatar shape="square" size="large" icon={<CreditCardOutlined style={{ color: '#fff' }} />} style={{ backgroundColor: '#22A550' }} />
-              <p className='h4 text-primary py-1'>$1000</p>
-              <p className='text-primary py-1'>My Salary Info</p>
+            <Card className=' text-center text-white' style={{ backgroundColor: "#22A550", border:"2px solid #2f463d" }}>
+              <Avatar shape="square" size="large" icon={<RiTaskFill style={{ color: '#fff' }} />} style={{ backgroundColor: '#174734' }} />
+              <p className='h4  py-1'>20</p>
+              <p className=' py-1'>My Tasks List</p>
               <Statistic
                 value={11.28}
                 precision={2}
                 valueStyle={{
-                  color: '#3f8600',
+                  color: '#fff',
                   fontSize: '18px'
                 }}
                 prefix={<ArrowUpOutlined style={{ fontSize: '2x' }} />}

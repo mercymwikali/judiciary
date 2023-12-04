@@ -71,6 +71,10 @@ body {
   overflow-y: scroll !important;
 }
 
+.login-page{
+  background-color: #D6B300;
+  height: 100dvh;
+}
 
 .ant-layout-sider {
   flex: 0 0 230px !important;

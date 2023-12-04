@@ -5,7 +5,7 @@ import { PlusOutlined, InboxOutlined } from '@ant-design/icons'
 import logo from '../assets/Images/logo.png';
 import { toast } from "react-toastify";
 
-function TimeOff(params) {
+function Maternity(params) {
     const [approvedLeaveData, setApprovedLeaveData] = useState([]);
     const [selectedLeaveType, setSelectedLeaveType] = useState('');
     const [selectedAppliedDays, setSelectedAppliedDays] = useState('');
@@ -23,7 +23,7 @@ function TimeOff(params) {
             <div className="card-body">
                 <div className="text-center">
                     <img width={200} src={logo} className='ps-3 py-1' alt='logo' />
-                    < h4 className='pt-3 text-primary'>Time Off Lieu List</h4>
+                    < h4 className='pt-3 text-primary'>Maternity Leave Request List</h4>
                 </div>
                 <hr></hr>
                 <div className="d-grid my-3 col-md-8 col-lg-6 d-md-block">
@@ -32,15 +32,14 @@ function TimeOff(params) {
                 <div className="table-responsive">
                     <table className="table table-hover table-bordered dt-responsive nowrap">
                         <thead>
-                            <tr>
+                        <tr>
                                 <th className='small text-primary text-center bg-secondary' scope="col">Action</th>
-                                <th className='small text-primary text-center bg-secondary' scope="col">No</th>
-                                <th className='small text-primary text-center bg-secondary' scope="col">Leave Type</th>
+                                <th className='small text-primary text-center bg-secondary' scope="col">Staff No</th>
                                 <th className='small text-primary text-center bg-secondary' scope="col">Date</th>
-                                <th className='small text-primary text-center bg-secondary' scope="col">Applied Days</th>
+                                <th className='small text-primary text-center bg-secondary' scope="col">Leave Type</th>
+                                <th className='small text-primary text-center bg-secondary' scope="col">Application Type</th>
+                                <th className='small text-primary text-center bg-secondary' scope="col">Department</th>
                                 <th className='small text-primary text-center bg-secondary' scope="col">Approved Days</th>
-                                <th className='small text-primary text-center bg-secondary' scope="col">Approved Days</th>
-                                <th className='small text-primary text-center bg-secondary' scope="col"> Comments</th>
                                 <th className='small text-primary text-center bg-secondary' scope="col"> Status</th>
                             </tr>
                         </thead>
@@ -63,13 +62,13 @@ function TimeOff(params) {
                     </table>
                 </div>
             </div>
-            <TimeoffLieuModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+            <MaternityLieuModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
         </Card>
     );
 };
 
 
-function TimeoffLieuModal({ setIsModalOpen, isModalOpen }) {
+function MaternityLieuModal({ setIsModalOpen, isModalOpen }) {
     const [Year, setYear] = useState([]);
     const [loading, setLoading] = useState(false);
     const [selectedAppliedDays, setSelectedAppliedDays] = useState('');
@@ -111,7 +110,7 @@ function TimeoffLieuModal({ setIsModalOpen, isModalOpen }) {
 
     const currentYear = new Date().getFullYear();
     const years = Array.from({ length: 10 }, (_, index) => currentYear + index);
-
+    const { RangePicker } = DatePicker;
     const months = [
         "January",
         "February",
@@ -177,27 +176,13 @@ function TimeoffLieuModal({ setIsModalOpen, isModalOpen }) {
             ]}>
             <div className="text-center">
                 <img width={300} src={logo} className='ps-4 py-3' alt='logo' />
-                <h4 className="modal-title text-primary py-2" ><u>Time off Lieu Request</u></h4>
+                <h4 className="modal-title text-primary py-2" ><u>Maternity Leave Request</u></h4>
             </div>
             <hr></hr>
             <div className="row">
                 <div className="col-12 ">
                     <p className='h6 fw-bold text-primary ls-wider text-decoration-underline'>Time Off Days  :</p>
-                    <select
-                        className="form-select"
-                        aria-label="Default select example"
-                        value={Year}
-                        onChange={(e) => setYear(e.target.value)}
-                    >
-                        <option value="" disabled>
-                            - - Select Appraisal Period - -
-                        </option>
-                        {years.map((year, index) => (
-                            <option key={index} value={year}>
-                                {year}
-                            </option>
-                        ))}
-                    </select>
+                    <RangePicker className='col-12' size='large' />
                 </div>
                 <div className="col-12 mt-3">
                     <p className='h6 fw-bold text-primary pt-3 ls-wider text-decoration-underline'>Attachment:</p>
@@ -226,4 +211,4 @@ function TimeoffLieuModal({ setIsModalOpen, isModalOpen }) {
     );
 };
 
-export default TimeOff;
+export default Maternity;

@@ -20,7 +20,7 @@ import Pettycashreq from "./pages/Pettycashreq";
 import StaffClaimreq from "./pages/StaffClaimreq";
 import LeaveReq from "./pages/LeaveReq";
 import LeaveReimbursement from "./pages/LeaveReimbursement";
-import TimeOff from "./pages/TimeOff";
+import Maternity from "./pages/Maternity";
 import CarryForward from "./pages/CarryForward";
 import ApplicationHist from "./pages/ApplicationHist";
 import Login from "./pages/Login";
@@ -39,8 +39,13 @@ import AssignedICTReq from "./pages/AssignedICTReq";
 import ICTMaintenance from "./pages/ICTMaintenance";
 import ImprestBalance from "./pages/ImprestBalance";
 import MyApprovalsList from "./pages/ApprovedLists";
+import LoanApplic from "./pages/LoanApplic";
+import MedicalForm from "./pages/MedicalForm";
+import InsuranceForm from "./pages/InsuranceForm";
+import EmployeeTransfer from "./pages/EmployeeTransfer";
 
 function AppRoutes() {
+    
     return (
         <Router>
             <Routes>
@@ -69,7 +74,7 @@ function AppRoutes() {
                     <Route path="/Staff-Claim-Requisition" element={<StaffClaimreq />} />
                     <Route path="/leave-requsition" element={<LeaveReq />} />
                     <Route path="/leave-reimbursement" element={<LeaveReimbursement />} />
-                    <Route path="/time-off" element={<TimeOff />} />
+                    <Route path="/MaternityLeave" element={<Maternity />} />
                     <Route path="/carry-forward" element={<CarryForward />} />
                     <Route path="/applications-history" element={<ApplicationHist />} />
                     <Route path="/Fuel-Requisition" element={<FuelReq />} />
@@ -81,10 +86,15 @@ function AppRoutes() {
                     <Route path="/exit-interview" element={<ExitInterview />} />
                     <Route path="/Staff-clearance" element={<StaffClearance />} />
                     <Route path="/staffInduction" element={<StaffInduction />} />
+                    <Route path="/Staff-Transfer" element={<EmployeeTransfer />} />
                     <Route path="/user-support-req" element={<UserSupport />} />
                     <Route path="/ICT-Asset-Req" element={<ICTAssetReq />} />
                     <Route path="/Assigned-ICT-Req" element={<AssignedICTReq />} />
                     <Route path="/ICT-services-Maintenance" element={<ICTMaintenance />} />
+                    <Route path="/Loan-Application" element={<LoanApplic />} />
+                    <Route path="/Medical-claim-Form" element={<MedicalForm />} />
+                    <Route path="/Insurance-Claim-Form" element={<InsuranceForm />} />
+
 
                 </Route>
             </Routes>

@@ -33,11 +33,11 @@ function LeaveReimbursement(params) {
                         <thead>
                             <tr>
                                 <th className='small text-primary text-center bg-secondary' scope="col">Action</th>
-                                <th className='small text-primary text-center bg-secondary' scope="col">No</th>
-                                <th className='small text-primary text-center bg-secondary' scope="col">Leave Type</th>
-                                <th className='small text-primary text-center bg-secondary' scope="col">Leave No</th>
-                                <th className='small text-primary text-center bg-secondary' scope="col">Applied Days</th>
+                                <th className='small text-primary text-center bg-secondary' scope="col">Staff No</th>
                                 <th className='small text-primary text-center bg-secondary' scope="col">Date</th>
+                                <th className='small text-primary text-center bg-secondary' scope="col">Leave Type</th>
+                                <th className='small text-primary text-center bg-secondary' scope="col">Application Type</th>
+                                <th className='small text-primary text-center bg-secondary' scope="col">Department</th>
                                 <th className='small text-primary text-center bg-secondary' scope="col">Approved Days</th>
                                 <th className='small text-primary text-center bg-secondary' scope="col"> Status</th>
                             </tr>
@@ -159,7 +159,7 @@ function LeaveRequestModal({ setIsModalOpen, isModalOpen }) {
 
     return (
         <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel} style={{
-            top: 20,
+            top:0,
         }}
             width='75%'
             class="modal-dialog modal-fullscreen-sm-down modal-dialog-scrollable"
@@ -172,65 +172,43 @@ function LeaveRequestModal({ setIsModalOpen, isModalOpen }) {
             </Button>,
             ]}>
             <div className="text-center">
-                <img width={300} src={logo} className='ps-4 py-3' alt='logo' />
-                <h4 className="modal-title text-primary py-2" ><u>Leave Reimbursement Application</u></h4>
+                <img width={300} src={logo} className='ps-4 ' alt='logo' />
+                <h4 className="modal-title text-primary py-1" ><u>Leave Reimbursement Application</u></h4>
             </div>
             <hr></hr>
             <div className="row">
                 <div className="col-12 col-md-6">
                     <div className="">
-                        <p className='h6 fw-bold text-primary ls-wider text-decoration-underline py-1'>Leave No  :</p>
-                        <select
-                            className="form-select"
-                            aria-label="Default select example"
-                            value={Year}
-                            onChange={(e) => setYear(e.target.value)}
-                        >
-                            <option value="" disabled>
-                                - - Select Leave Document No - -
-                            </option>
-                            {years.map((year, index) => (
-                                <option key={index} value={year}>
-                                    {year}
-                                </option>
-                            ))}
-                        </select>
+                        <p className='h6 fw-bold text-primary ls-wider text-decoration-underline pt-1'>Date :</p>
+                        <DatePicker className='col-12'  size='medium'/>
                     </div>
-                    <div className="pt-12">
-                        <p className='h6 fw-bold text-primary pt-3 ls-wider text-decoration-underline py-1'>Select Applied Days :</p>
-                        <select
-                            className="form-select"
-                            aria-label="Default select example"
-                            value={Year}
+                   
+                    <div className="">
+                        <p className='h6 fw-bold text-primary pt-3 ls-wider text-decoration-underline pt-1'>Staff No:</p>
+                        <Input
+                            className="form-input"
                             onChange={(e) => setYear(e.target.value)}
+                            size='medium'
                         >
-                            <option value="" disabled>
-                                - - Select Applied Days - -
-                            </option>
-                            {years.map((year, index) => (
-                                <option key={index} value={year}>
-                                    {year}
-                                </option>
-                            ))}
-                        </select>
+                        </Input>
                     </div>
-                    <div className="pt-2">
-                        <p className='h6 fw-bold text-primary pt-3 ls-wider text-decoration-underline py-1'> Select Days to Reimburse :</p>
-                        <select
-                            className="form-select"
-                            aria-label="Default select example"
-                            value={Year}
+                    <div className="">
+                        <p className='h6 fw-bold text-primary pt-3 ls-wider text-decoration-underline pt-1'>Staff Name:</p>
+                        <Input
+                            className="form-input"
                             onChange={(e) => setYear(e.target.value)}
+                            size='medium'
                         >
-                            <option value="" disabled>
-                                - -  Select Days to Reimburse - -
-                            </option>
-                            {years.map((year, index) => (
-                                <option key={index} value={year}>
-                                    {year}
-                                </option>
-                            ))}
-                        </select>
+                        </Input>
+                    </div>
+                    <div className="">
+                        <p className='h6 fw-bold text-primary pt-3 ls-wider text-decoration-underline pt-1'>Leave Type:</p>
+                        <Input
+                            className="form-input"
+                            onChange={(e) => setYear(e.target.value)}
+                            size='medium'
+                        >
+                        </Input>
                     </div>
                 </div>
                 <div className="col-12 col-md-6">

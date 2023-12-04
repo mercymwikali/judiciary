@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Card, DatePicker, Modal, Upload, message, Input, Skeleton } from 'antd';
+import { Button, Card, DatePicker, Modal, AutoComplete, Upload, message, Input, Skeleton } from 'antd';
 import { Link } from 'react-router-dom';
-import { PlusOutlined, InboxOutlined } from '@ant-design/icons';
+import { PlusOutlined, InboxOutlined, SearchOutlined } from '@ant-design/icons';
 import logo from '../assets/Images/logo.png';
 import { toast } from 'react-toastify';
 
@@ -12,24 +12,23 @@ function LeaveReq(params) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [loadingData, setLoadingData] = useState(true);
 
+
     // Simulated fetch request (comment out this part when integrating with a real API)
     useEffect(() => {
         // Simulated leave data
-        const fakeLeaveData = [
-            { leaveType: 'Annual Leave', appliedDays: 5, date: '2023-11-01', startDate: '2023-11-01', endDate: '2023-11-05', returnDate: '2023-11-06', reliever: 'John Doe', status: 'Approved' },
-            { leaveType: 'Study Leave', appliedDays: 3, date: '2023-11-10', startDate: '2023-11-10', endDate: '2023-11-12', returnDate: '2023-11-13', reliever: 'Jane Doe', status: 'Pending' },
-            { leaveType: 'Sick Leave', appliedDays: 2, date: '2023-11-15', startDate: '2023-11-15', endDate: '2023-11-16', returnDate: '2023-11-17', reliever: 'Sam Smith', status: 'Approved' },
-            { leaveType: 'Maternity Leave', appliedDays: 90, date: '2023-11-20', startDate: '2023-11-20', endDate: '2024-02-17', returnDate: '2024-02-18', reliever: 'Emily Johnson', status: 'Pending' },
-            { leaveType: 'Paternity Leave', appliedDays: 7, date: '2023-12-05', startDate: '2023-12-05', endDate: '2023-12-11', returnDate: '2023-12-12', reliever: 'Michael Brown', status: 'Approved' },
-            { leaveType: 'Vacation Leave', appliedDays: 10, date: '2023-12-15', startDate: '2023-12-15', endDate: '2023-12-24', returnDate: '2023-12-25', reliever: 'Laura White', status: 'Pending' },
-            { leaveType: 'Unpaid Leave', appliedDays: 15, date: '2024-01-02', startDate: '2024-01-02', endDate: '2024-01-16', returnDate: '2024-01-17', reliever: 'Chris Taylor', status: 'Approved' },
-            { leaveType: 'Business Trip', appliedDays: 8, date: '2024-02-05', startDate: '2024-02-05', endDate: '2024-02-12', returnDate: '2024-02-13', reliever: 'Daniel Black', status: 'Approved' },
-            { leaveType: 'Family Emergency', appliedDays: 3, date: '2024-02-18', startDate: '2024-02-18', endDate: '2024-02-20', returnDate: '2024-02-21', reliever: 'Sophia Red', status: 'Pending' },
-            { leaveType: 'Training Leave', appliedDays: 2, date: '2024-03-01', startDate: '2024-03-01', endDate: '2024-03-02', returnDate: '2024-03-03', reliever: 'Matthew Blue', status: 'Approved' },
-            { leaveType: 'Compensatory Leave', appliedDays: 1, date: '2024-03-10', startDate: '2024-03-10', endDate: '2024-03-10', returnDate: '2024-03-11', reliever: 'Ella Pink', status: 'Pending' },
-            // Add more leave data here
-        ];
-        
+        // Fetch data from the API
+        const fakeLeaveData = fetch('https://portal.greencom.co.ke:5054/Jumuika/ODataV4/Company(\'Judiciary\')/EmployeeList')
+            .then(response => response.json())
+            .then(data => {
+                // Update the state with the fetched data
+                setApprovedLeaveData(data.value);
+                setLoadingData(false);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                // Handle the error, e.g., display an error message
+            });
+
 
         // Simulate fetching data from an API (comment this out when integrating with a real API)
         setTimeout(() => {
@@ -42,23 +41,12 @@ function LeaveReq(params) {
         setIsModalOpen(true);
     };
 
-    const leaveTypes = [
-        'Adoption',
-        'Annual Leave',
-        'Partenity',
-        'Personal Days',
-        'Sick Off',
-        'Sick Leave',
-        'Study Leave',
-        'Time Off In Lieu',
-    ];
-
     return (
         <Card>
             <div className="card-body">
                 <div className="text-center">
                     <img width={200} src={logo} className="ps-3 py-2" alt="logo" />
-                    <h4 className="pt-1 text-primary">Leave Request List</h4>
+                    <h4 className="pt-1 text-primary">Leave Application List</h4>
                 </div>
                 <hr></hr>
                 <div className="d-grid my-3  d-md-block">
@@ -71,7 +59,7 @@ function LeaveReq(params) {
                         aria-pressed="true"
                     >
                         <PlusOutlined style={{ color: '#fff', paddingRight: '2px' }} />
-                        New Leave Request
+                        New Leave Application
                     </button>
                 </div>
                 <div className="table-responsive">
@@ -79,10 +67,13 @@ function LeaveReq(params) {
                         <thead>
                             <tr>
                                 <th className="small text-primary text-center bg-secondary" scope="col">
-                                    Action
+                                    Application No
                                 </th>
                                 <th className="small text-primary text-center bg-secondary" scope="col">
-                                    No
+                                    Staff No
+                                </th>
+                                <th className="small text-primary text-center bg-secondary" scope="col">
+                                    Name
                                 </th>
                                 <th className="small text-primary text-center bg-secondary" scope="col">
                                     Leave Type
@@ -91,16 +82,13 @@ function LeaveReq(params) {
                                     Applied Days
                                 </th>
                                 <th className="small text-primary text-center bg-secondary" scope="col">
-                                    Date
-                                </th>
-                                <th className="small text-primary text-center bg-secondary" scope="col">
                                     Start Date
                                 </th>
                                 <th className="small text-primary text-center bg-secondary" scope="col">
-                                    End Date
+                                    Return Date
                                 </th>
                                 <th className="small text-primary text-center bg-secondary" scope="col">
-                                    Return Date
+                                    End Date
                                 </th>
                                 <th className="small text-primary text-center bg-secondary" scope="col">
                                     Reliever
@@ -118,20 +106,22 @@ function LeaveReq(params) {
                                     </td>
                                 </tr>
                             ) : approvedLeaveData.length > 0 ? (
-                                approvedLeaveData.map((leave, index) => (
+                                approvedLeaveData.map((employee, index) => (
                                     <tr key={index}>
+                                        {/* Adjust the table cells based on the structure of the API response */}
                                         <td> {/* Action button or action related to the row */}</td>
                                         <td>{index + 1}</td>
-                                        <td>{leave.leaveType}</td>
-                                        <td>{leave.appliedDays}</td>
-                                        <td>{leave.date}</td>
-                                        <td>{leave.startDate}</td>
-                                        <td>{leave.endDate}</td>
-                                        <td>{leave.returnDate}</td>
-                                        <td>{leave.reliever}</td>
-                                        <td>{leave.status}</td>
+                                        <td>{employee.leaveType}</td>
+                                        <td>{employee.appliedDays}</td>
+                                        <td>{employee.date}</td>
+                                        <td>{employee.startDate}</td>
+                                        <td>{employee.endDate}</td>
+                                        <td>{employee.returnDate}</td>
+                                        <td>{employee.reliever}</td>
+                                        <td>{employee.status}</td>
                                     </tr>
                                 ))
+
                             ) : (
                                 <tr>
                                     <td colSpan="10" className="text-danger">
@@ -152,6 +142,9 @@ function LeaveRequestModal({ setIsModalOpen, isModalOpen }) {
     const [loading, setLoading] = useState(false);
     const [selectedAppliedDays, setSelectedAppliedDays] = useState('');
     const [selectedReliever, setSelectedReliever] = useState('');
+
+
+    const { Option } = AutoComplete;
 
     const handleOk = () => {
         setTimeout(() => {
@@ -202,6 +195,74 @@ function LeaveRequestModal({ setIsModalOpen, isModalOpen }) {
         "November",
         "December",
     ];
+    const leaveTypes = [
+        'Leave of Absence',
+        'Adoption',
+        'Annual Leave',
+        'Annual Hardship Leave',
+        'Compassionate',
+        'Examination',
+        'Home Leave',
+        'Maternity',
+        'Off Day',
+        'Paternity',
+        'Sabbatical',
+        'Sick Off/Convalescence',
+        'Special Sports',
+        'Study',
+        'Terminal',
+        'Test'
+
+    ];
+
+    const Annual_Leave_Type = [
+        'Annual Leave',
+        'Emergency Leave',
+        'Compassionate Leave'
+    ]
+
+    const costCenters = [
+        'HIV and AIDS Tribunal',
+        'Industrial Property Tribunal',
+        'National Environment Tribunal',
+        'Political Parties Disputes Tribunal',
+        'Public Private Partnership Petition Committee',
+        'Rent Restriction Tribunal',
+        'Sports Disputes Tribunal',
+        'Standards Tribunal',
+        'Transport Licensing Appeals Board',
+        'Water Appeals Board',
+        'Milimani Commercial Magistrate Court',
+        'Milimani Childrens Court',
+        'Milimani Magistrate Court',
+        'Nairobi City Court',
+        'Makadara Magistrate Court',
+        'Kibera Magistrate Court',
+        'Milimani Anticorruption Court',
+        'JKIA Magistrate Court',
+        'Kibera Kadhi Court',
+        'Nairobi Kadhi Court',
+        'Lamu Magistrate Court',
+        'Mpeketoni Magistrate Court',
+        'Taveta Magistrate Court',
+        'Voi Magistrate Court',
+        'Wundanyi Magistrate Court',
+        'Garissa Magistrate Court',
+        'Wajir Magistrate Court',
+        'Mandera Magistrate Court',
+        'Directorate of HR Management & Development',
+        'Directorate of Administration & Security Services',
+        'ICT Directorate',
+        'Planning and Organization Performance Directorate',
+        'Supply Chain Management Directorate',
+        'Public Affairs and Communication Directorate',
+        'Audit and Risk Management Directorate',
+        'Finance and Accounts Directorate',
+    ];
+    const onSearch = (value) => {
+        console.log('Searching for:', value);
+        // You can perform additional actions based on the search value
+    };
 
     const submitApplication = () => {
         // Create an object with the form data
@@ -238,148 +299,218 @@ function LeaveRequestModal({ setIsModalOpen, isModalOpen }) {
 
 
     return (
-        <Modal
-            open={isModalOpen}
-            onOk={handleOk}
-            onCancel={handleCancel}
-            style={{
-                top: 20,
-            }}
-            width="75%"
+        <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel} style={{
+            top: 0,
+        }}
+            width='75%'
             class="modal-dialog modal-fullscreen-sm-down modal-dialog-scrollable"
             footer={[
-                <Button key="back" onClick={handleCancel} size="large">
+                <Button key="back" onClick={handleCancel} size='medium'>
                     Exit
                 </Button>,
-                <Button key="text" type="primary" className="btn-primary" loading={loading} onClick={handleOk} size="large">
+                <Button key="text" type="primary" className='btn-primary' loading={loading} onClick={handleOk} size='medium'>
                     Save Changes
                 </Button>,
-            ]}
-        >
+            ]}>
             <div className="text-center">
                 <img width={300} src={logo} className='ps-4 ' alt='logo' />
-                <h4 className="modal-title text-primary " ><u>New Leave Application Document</u></h4>
+                <h4 className="modal-title text-primary py-2" ><u>Leave Application Document</u></h4>
             </div>
             <hr></hr>
-            <div className="row g-3">
+            <div className="row">
                 <div className="col-12 col-md-6">
                     <div className="">
-                        <p className='h6 fw-bold text-primary ls-wider text-decoration-underline py-1'>Leave Type  :</p>
-                        <select
-                            className="form-select"
-                            aria-label="Default select example"
-                            value={Year}
-                            onChange={(e) => setYear(e.target.value)}
+                        <p className='h6  text-primary ls-wider text-decoration-underline'>Leave Type:</p>
+                        <AutoComplete
+                            className="form-input"
+                            placeholder="Search Leave Type"
+                            onSelect={(value) => onSearch(value)}
+                            optionLabelProp="value"
+                            style={{ width: '100%' }}
+                            size='medium'
                         >
-                            <option value="" disabled>
-                                - - Select Appraisal Period - -
-                            </option>
-                            {years.map((year, index) => (
-                                <option key={index} value={year}>
-                                    {year}
-                                </option>
+                            {leaveTypes.map((leavetype, index) => (
+                                <Option key={index} value={leavetype}>
+                                    {leavetype}
+                                </Option>
                             ))}
-                        </select>
+                        </AutoComplete>
                     </div>
-                    <div className="pt-12">
-                        <p className='h6 fw-bold text-primary pt-3 ls-wider text-decoration-underline py-1'>Select Reliever :</p>
-                        <select
-                            className="form-select"
-                            aria-label="Default select example"
-                            value={Year}
-                            onChange={(e) => setYear(e.target.value)}
+                    <div className="">
+                        <p className='h6 text-primary pt-3 ls-wider text-decoration-underline '>Annual Leave Type :</p>
+                        <AutoComplete
+                            className="form-input"
+                            placeholder="Search Annual Leave Type"
+                            onSelect={(value) => onSearch(value)}
+                            optionLabelProp="value"
+                            style={{ width: '100%' }}
+                            size='medium'
                         >
-                            <option value="" disabled>
-                                - - Select Appraisal Period - -
-                            </option>
-                            {years.map((year, index) => (
-                                <option key={index} value={year}>
-                                    {year}
-                                </option>
+                            {Annual_Leave_Type.map((Annual_Leave_type, index) => (
+                                <Option key={index} value={Annual_Leave_type}>
+                                    {Annual_Leave_type}
+                                </Option>
                             ))}
-                        </select>
+                        </AutoComplete>
                     </div>
-                    <div className="pt-2">
-                        <p className='h6 fw-bold text-primary pt-3 ls-wider text-decoration-underline py-1'>No of Leave Days :</p>
-                        <select
-                            className="form-select"
-                            aria-label="Default select example"
-                            value={Year}
+                    <div className="">
+                        <p className='h6  text-primary pt-3 ls-wider text-decoration-underline '> Days Applied:</p>
+                        <Input
+                            className="form-input"
                             onChange={(e) => setYear(e.target.value)}
+                            size='medium'
                         >
-                            <option value="" disabled>
-                                - - Select Appraisal Period - -
-                            </option>
-                            {years.map((year, index) => (
-                                <option key={index} value={year}>
-                                    {year}
-                                </option>
+                        </Input>
+                    </div>
+                    <div className="">
+                        <p className='h6  text-primary pt-3 ls-wider text-decoration-underline '>Start Date:</p>
+                        <DatePicker className='col-12' size='medium' />
+                    </div>
+                    <div className="">
+                        <p className='h6  text-primary pt-3 ls-wider text-decoration-underline '>Return Date:</p>
+                        <DatePicker className='col-12' size='medium' />
+                    </div>
+                    <div className="">
+                        <p className='h6  text-primary pt-3 ls-wider text-decoration-underline '>Staff No:</p>
+                        <Input
+                            className="form-input"
+                            onChange={(e) => setYear(e.target.value)}
+                            size='medium'
+                        >
+                        </Input>
+                    </div>
+                    <div className="">
+                        <p className='h6 text-primary pt-3 ls-wider text-decoration-underline'>Cost Center Name :</p>
+                        <AutoComplete
+                            className="form-input"
+                            placeholder="Search cost center"
+                            onSelect={(value) => onSearch(value)}
+                            optionLabelProp="value"
+                            style={{ width: '100%' }}
+                            size='medium'
+                        >
+                            {costCenters.map((costcenter, index) => (
+                                <Option key={index} value={costcenter}>
+                                    {costcenter}
+                                </Option>
                             ))}
-                        </select>
+                        </AutoComplete>
                     </div>
                 </div>
                 <div className="col-12 col-md-6">
-                    <p className='h6 fw-bold text-primary ls-wider text-decoration-underline'>Supervisor:</p>
-                    <table className="table table-hover   dt-responsive nowrap">
-                        <thead>
-                            <tr>
-                                <th scope="col">No.</th>
-                                <th scope="col">Leave Type</th>
-                                <th scope="col">Count</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Annual Leave Entitlement</td>
-                                <td>0</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Leave carried forward from previous Year</td>
-                                <td>0</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Reimbursed Days</td>
-                                <td>0</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">4</th>
-                                <td>Leave Taken</td>
-                                <td>0</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">5</th>
-                                <td>Earned Days</td>
-                                <td>0</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">6</th>
-                                <td>Leave Balance</td>
-                                <td>0</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div className="">
+                        <p className='h6  text-primary  ls-wider text-decoration-underline '>Job Description:</p>
+                        <Input
+                            className="form-input"
+                            onChange={(e) => setYear(e.target.value)}
+                            size='medium'
+                        >
+                        </Input>
+                    </div>
+                    <div className="">
+                        <p className='h6  text-primary pt-3 ls-wider text-decoration-underline '> Supervisor Name:</p>
+                        <Input
+                            className="form-input"
+                            onChange={(e) => setYear(e.target.value)}
+                        >
+                        </Input>
+                    </div>
+                    <div className="">
+                        <p className='h6  text-primary pt-3 ls-wider text-decoration-underline '>Supervisor Email:</p>
+                        <Input
+                            className="form-input"
+                            onChange={(e) => setYear(e.target.value)}
+                            size='medium'
+                        >
+                        </Input>
+                    </div>
+                    <div className="">
+                        <p className='h6  text-primary pt-3 ls-wider text-decoration-underline '>Reliever Name:</p>
+                        <Input
+                            className="form-input"
+                            onChange={(e) => setYear(e.target.value)}
+                            size='medium'
+                        >
+                        </Input>
+                    </div>
+                    <div className="">
+                        <p className='h6  text-primary pt-3 ls-wider text-decoration-underline '>Cell Phone Number:</p>
+                        <Input
+                            className="form-input"
+                            onChange={(e) => setYear(e.target.value)}
+                            size='medium'
+                        >
+                        </Input>
+                    </div>
+                    <div className="">
+                        <p className='h6  text-primary pt-3 ls-wider text-decoration-underline '>Email Address:</p>
+                        <Input
+                            className="form-input"
+                            onChange={(e) => setYear(e.target.value)}
+                            size='medium'
+                        >
+                        </Input>
+                    </div>
+                    {/* <div className="">
+                        <p className='h6  text-primary pt-3 ls-wider text-decoration-underline '>Details of Examination:</p>
+                        <DatePicker className='col-12' />
+                    </div> */}
+                    <div className="">
+                        <p className='h6  text-primary pt-3 ls-wider text-decoration-underline '>Date of Exam:</p>
+                        <DatePicker className='col-12' size='medium' />
+                    </div>
+
+
                 </div>
             </div>
             <hr></hr>
-            <div className="row py-2 mx-1 " style={{ backgroundColor: '#d5d3d3' }}>
-                <p className='h5 fw-bold text-danger ls-wider text-decoration-underline'>Leave Dates</p>
-                <div className="col-12 col-md-4 pt-2 pb-3 ">
-                    <DatePicker size='large'
-                        placeholder='Select Start Date' className='col-12' />
-                </div>
-                <div className="col-12 col-md-4 pt-2 pb-3 ">
-                    <DatePicker size='large' placeholder='Select End Date' className='col-12' />
-                </div>
-                <div className="col-12 col-md-4 pt-2 pb-3 ">
-                    <DatePicker size='large' placeholder='Select Return Date' className='col-12' />
-                </div>
+            <div className="col-12">
+                <p className='h6  text-primary ls-wider  text-decoration-underline'>Leave Data</p>
+                <table className="table table-hover   dt-responsive nowrap">
+                    <thead>
+                        <tr>
+                            <th scope="col">No.</th>
+                            <th scope="col">Leave Type</th>
+                            <th scope="col">Count</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Annual Leave Entitlement</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>Leave carried forward from previous Year</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>Reimbursed Days</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">4</th>
+                            <td>Leave Taken</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">5</th>
+                            <td>Earned Days</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">6</th>
+                            <td>Leave Balance</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
             <hr className='mt-4'></hr>
             <div className="row">
-                <p className='h5 fw-bold text-primary ls-wider text-decoration-underline'>Hand-Over Report</p>
+                <p className='h5  text-primary ls-wider text-decoration-underline'>Hand-Over Report</p>
                 <div class="input-group">
                     <Dragger {...props} className='col-12'>
                         <p className="ant-upload-drag-icon">
@@ -389,9 +520,10 @@ function LeaveRequestModal({ setIsModalOpen, isModalOpen }) {
                                 Support for a single or bulk upload.                          </p>
                         </p>
                     </Dragger>
+
                 </div>
                 <div className=" mt-3">
-                    <p className='h5 fw-bold text-primary ls-wider text-decoration-underline'>Remarks</p>
+                    <p className='h5  text-primary ls-wider text-decoration-underline'>Remarks</p>
                     <div className="input-group">
                         <TextArea className='col-12' rows={4}>
                             <br></br>
